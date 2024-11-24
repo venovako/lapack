@@ -47,3 +47,9 @@ doxygen_error
 
 # backup files
 *.bak
+
+# Fortran modules
+*.mod
+
+# Generated files
+LAPACKE/include/lapacke_mangling.h
