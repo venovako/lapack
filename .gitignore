@@ -43,3 +43,7 @@ build*
 DOCS/man
 DOCS/explore-html
 output_err
+doxygen_error
+
+# backup files
+*.bak
