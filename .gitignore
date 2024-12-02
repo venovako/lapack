@@ -48,8 +48,9 @@ doxygen_error
 # backup files
 *.bak
 
-# Fortran modules
-*.mod
+# Mod files from compilation in SRC
+SRC/la_constants.mod
+SRC/la_xisnan.mod
 
 # Generated files
 LAPACKE/include/lapacke_mangling.h
