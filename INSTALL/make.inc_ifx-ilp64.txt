@@ -1,5 +1,5 @@
 ####################################################################
-#  LAPACK make include file, modified for Intel Fortran (ifort).   #
+#  LAPACK make include file for Intel Fortran (ifx, ILP64).        #
 ####################################################################
 
 SHELL = /bin/sh

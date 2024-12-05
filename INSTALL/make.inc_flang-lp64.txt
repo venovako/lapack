@@ -1,5 +1,5 @@
 ####################################################################
-#  LAPACK make include file for GCC (LP64) with debugging          #
+#  LAPACK make include file for Flang (LP64) with debugging        #
 ####################################################################
 
 SHELL = /bin/sh
@@ -18,7 +18,7 @@ CFLAGS = -O0 -g -fPIC -fno-omit-frame-pointer -ffp-contract=fast -march=native
 #  should not compile LAPACK with flags such as -ffpe-trap=overflow.
 #
 FC = flang-new
-FFLAGS = -cpp -O0 -g -fPIC -fimplicit-none -fno-omit-frame-pointer -ffp-contract=fast -fhonor-infinities -fhonor-nans -fstack-arrays -march=native
+FFLAGS = -cpp -O0 -g -fPIC -fimplicit-none -fno-omit-frame-pointer -ffp-contract=fast -fhonor-infinities -fhonor-nans -march=native
 FFLAGS_DRV = $(FFLAGS)
 FFLAGS_NOOPT = $(FFLAGS)
 
