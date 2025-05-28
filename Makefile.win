@@ -1,0 +1,109 @@
+#
+#  Top Level Makefile for LAPACK, make lib.
+#
+
+TOPSRCDIR = .
+!INCLUDE $(TOPSRCDIR)\make.win
+
+all: lapack_install lib blas_testing lapack_testing #variants_testing
+
+lib: blaslib variants lapacklib tmglib
+
+blaslib:
+	pushd BLAS && $(MAKE) /NOLOGO /F Makefile.win && popd
+
+lapacklib:
+	pushd SRC && $(MAKE) /NOLOGO /F Makefile.win && popd
+
+tmglib:
+	pushd TESTING\MATGEN && $(MAKE) /NOLOGO /F Makefile.win && popd
+
+variants:
+	pushd SRC\VARIANTS && $(MAKE) /NOLOGO /F Makefile.win && popd
+
+lapack_install:
+	pushd INSTALL && $(MAKE) /NOLOGO /F Makefile.win run && popd
+
+blas_testing: blaslib
+	pushd BLAS && $(MAKE) /NOLOGO /F Makefile.win blas_testing && popd
+
+lapack_testing: tmglib lapacklib blaslib
+	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win cleanexe && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win && popd
+	lapack_testing.py
+
+variants_testing: tmglib variants lapacklib blaslib
+	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win cleanexe && popd
+	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win VARLIB="..\..\SRC\VARIANTS\cholrl.lib" && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win stest.out && MOVE /Y stest.out stest_cholrl.out && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win dtest.out && MOVE /Y dtest.out dtest_cholrl.out && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win ctest.out && MOVE /Y ctest.out ctest_cholrl.out && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win ztest.out && MOVE /Y ztest.out ztest_cholrl.out && popd
+	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win cleanexe && popd
+	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win VARLIB="..\..\SRC\VARIANTS\choltop.lib" && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win stest.out && MOVE /Y stest.out stest_choltop.out && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win dtest.out && MOVE /Y dtest.out dtest_choltop.out && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win ctest.out && MOVE /Y ctest.out ctest_choltop.out && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win ztest.out && MOVE /Y ztest.out ztest_choltop.out && popd
+	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win cleanexe && popd
+	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win VARLIB="..\..\SRC\VARIANTS\lucr.lib" && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win stest.out && MOVE /Y stest.out stest_lucr.out && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win dtest.out && MOVE /Y dtest.out dtest_lucr.out && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win ctest.out && MOVE /Y ctest.out ctest_lucr.out && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win ztest.out && MOVE /Y ztest.out ztest_lucr.out && popd
+	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win cleanexe && popd
+	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win VARLIB="..\..\SRC\VARIANTS\lull.lib" && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win stest.out && MOVE /Y stest.out stest_lull.out && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win dtest.out && MOVE /Y dtest.out dtest_lull.out && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win ctest.out && MOVE /Y ctest.out ctest_lull.out && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win ztest.out && MOVE /Y ztest.out ztest_lull.out && popd
+	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win cleanexe && popd
+	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win VARLIB="..\..\SRC\VARIANTS\lurec.lib" && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win stest.out && MOVE /Y stest.out stest_lurec.out && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win dtest.out && MOVE /Y dtest.out dtest_lurec.out && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win ctest.out && MOVE /Y ctest.out ctest_lurec.out && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win ztest.out && MOVE /Y ztest.out ztest_lurec.out && popd
+	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win cleanexe && popd
+	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win VARLIB="..\..\SRC\VARIANTS\qrll.lib" && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win stest.out && MOVE /Y stest.out stest_qrll.out && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win dtest.out && MOVE /Y dtest.out dtest_qrll.out && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win ctest.out && MOVE /Y ctest.out ctest_qrll.out && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win ztest.out && MOVE /Y ztest.out ztest_qrll.out && popd
+
+clean:
+	pushd INSTALL && $(MAKE) /NOLOGO /F Makefile.win clean && popd
+	pushd BLAS && $(MAKE) /NOLOGO /F Makefile.win clean && popd
+	pushd SRC && $(MAKE) /NOLOGO /F Makefile.win clean && popd
+	pushd SRC\VARIANTS && $(MAKE) /NOLOGO /F Makefile.win clean && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win clean && popd
+	pushd TESTING\MATGEN && $(MAKE) /NOLOGO /F Makefile.win clean && popd
+	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win clean && popd
+	pushd TESTING\EIG && $(MAKE) /NOLOGO /F Makefile.win clean && popd
+	DEL /F /Q *.lib
+
+cleanobj:
+	pushd INSTALL && $(MAKE) /NOLOGO /F Makefile.win cleanobj && popd
+	pushd BLAS && $(MAKE) /NOLOGO /F Makefile.win cleanobj && popd
+	pushd SRC && $(MAKE) /NOLOGO /F Makefile.win cleanobj && popd
+	pushd SRC\VARIANTS && $(MAKE) /NOLOGO /F Makefile.win cleanobj && popd
+	pushd TESTING\MATGEN && $(MAKE) /NOLOGO /F Makefile.win cleanobj && popd
+	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win cleanobj && popd
+	pushd TESTING\EIG && $(MAKE) /NOLOGO /F Makefile.win cleanobj && popd
+
+cleanlib:
+	pushd BLAS && $(MAKE) /NOLOGO /F Makefile.win cleanlib && popd
+	pushd SRC && $(MAKE) /NOLOGO /F Makefile.win cleanlib && popd
+	pushd SRC\VARIANTS && $(MAKE) /NOLOGO /F Makefile.win cleanlib && popd
+	pushd TESTING\MATGEN && $(MAKE) /NOLOGO /F Makefile.win cleanlib && popd
+	DEL /F /Q *.lib
+
+cleanexe:
+	pushd INSTALL && $(MAKE) /NOLOGO /F Makefile.win cleanexe && popd
+	pushd BLAS && $(MAKE) /NOLOGO /F Makefile.win cleanexe && popd
+	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win cleanexe && popd
+	pushd TESTING\EIG && $(MAKE) /NOLOGO /F Makefile.win cleanexe && popd
+
+cleantest:
+	pushd INSTALL && $(MAKE) /NOLOGO /F Makefile.win cleantest && popd
+	pushd BLAS && $(MAKE) /NOLOGO /F Makefile.win cleantest && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win cleantest && popd

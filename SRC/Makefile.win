@@ -1,0 +1,575 @@
+#######################################################################
+#  This is the makefile to create a library for LAPACK.
+#  The files are organized as follows:
+#
+#       ALLAUX  -- Auxiliary routines called from all precisions
+#       SCLAUX  -- Auxiliary routines called from single precision
+#       DZLAUX  -- Auxiliary routines called from double precision
+#
+#       DSLASRC -- Double-single mixed precision real routines called from
+#                  single, single-extra and double precision real LAPACK
+#                  routines (i.e. from SLASRC, SXLASRC, DLASRC).
+#       ZCLASRC -- Double-single mixed precision complex routines called from
+#                  single, single-extra and double precision complex LAPACK
+#                  routines (i.e. from CLASRC, CXLASRC, ZLASRC).
+#
+#       SLASRC  -- Single precision real LAPACK routines
+#       SXLASRC -- Single precision real LAPACK routines using extra
+#                  precision.
+#       CLASRC  -- Single precision complex LAPACK routines
+#       CXLASRC -- Single precision complex LAPACK routines using extra
+#                  precision.
+#       DLASRC  -- Double precision real LAPACK routines
+#       DXLASRC -- Double precision real LAPACK routines using extra
+#                  precision.
+#       ZLASRC  -- Double precision complex LAPACK routines
+#       ZXLASRC -- Double precision complex LAPACK routines using extra
+#                  precision.
+#
+#    DEPRECATED -- Deprecated routines in all precisions
+#
+#  The library can be set up to include routines for any combination
+#  of the four precisions.  To create or add to the library, enter make
+#  followed by one or more of the precisions desired.  Some examples:
+#       make single
+#       make single complex
+#       make single double complex complex16
+#  Alternatively, the command
+#       make
+#  without any arguments creates a library of all four precisions.
+#  The library is called
+#       lapack.lib
+#  and is created at the next higher directory level.
+#
+#  To remove the object files after the library is created, enter
+#       make cleanobj
+#  On some systems, you can force the source files to be recompiled by
+#  entering (for example)
+#       make single FRC=FRC
+#
+#  ***Note***
+#  The functions lsame, second, dsecnd, slamch, and dlamch may have
+#  to be installed before compiling the library.  Refer to the
+#  installation guide, LAPACK Working Note 41, for instructions.
+#
+#######################################################################
+
+TOPSRCDIR = ..
+!INCLUDE $(TOPSRCDIR)\make.win
+
+ALLMOD = la_xisnan.mod la_constants.mod
+
+.SUFFIXES: .F .f90 .F90 .obj .mod
+
+.F.obj:
+	$(FC) $(FFLAGS) /c /Fo$@ $<
+.f90.obj:
+	$(FC) $(FFLAGS) /c /Fo$@ $<
+.F90.obj:
+	$(FC) $(FFLAGS) /c /Fo$@ $<
+.obj.mod:
+	@ECHO
+
+ALLAUX = ilaenv.obj ilaenv2stage.obj ieeeck.obj lsamen.obj xerbla.obj xerbla_array.obj \
+   iparmq.obj iparam2stage.obj la_xisnan.obj \
+   ilaprec.obj ilatrans.obj ilauplo.obj iladiag.obj chla_transtype.obj \
+   ..\INSTALL\ilaver.obj ..\INSTALL\lsame.obj ..\INSTALL\slamch.obj
+
+SCLAUX = \
+   la_constants.obj \
+   sbdsdc.obj \
+   sbdsqr.obj sdisna.obj slabad.obj slacpy.obj sladiv.obj slae2.obj  slaebz.obj \
+   slaed0.obj slaed1.obj slaed2.obj slaed3.obj slaed4.obj slaed5.obj slaed6.obj \
+   slaed7.obj slaed8.obj slaed9.obj slaeda.obj slaev2.obj slagtf.obj \
+   slagts.obj slamrg.obj slanst.obj \
+   slapy2.obj slapy3.obj slarnv.obj \
+   slarra.obj slarrb.obj slarrc.obj slarrd.obj slarre.obj slarrf.obj slarrj.obj \
+   slarrk.obj slarrr.obj slaneg.obj \
+   slartg.obj slaruv.obj slas2.obj  slascl.obj \
+   slasd0.obj slasd1.obj slasd2.obj slasd3.obj slasd4.obj slasd5.obj slasd6.obj \
+   slasd7.obj slasd8.obj slasda.obj slasdq.obj slasdt.obj \
+   slaset.obj slasq1.obj slasq2.obj slasq3.obj slasq4.obj slasq5.obj slasq6.obj \
+   slasr.obj  slasrt.obj slassq.obj slasv2.obj spttrf.obj sstebz.obj sstedc.obj \
+   ssteqr.obj ssterf.obj slaisnan.obj sisnan.obj \
+   slartgp.obj slartgs.obj ..\INSTALL\sroundup_lwork.obj \
+   ..\INSTALL\second_$(TIMER).obj
+
+DZLAUX = \
+   la_constants.obj \
+   dbdsdc.obj \
+   dbdsqr.obj ddisna.obj dlabad.obj dlacpy.obj dladiv.obj dlae2.obj  dlaebz.obj \
+   dlaed0.obj dlaed1.obj dlaed2.obj dlaed3.obj dlaed4.obj dlaed5.obj dlaed6.obj \
+   dlaed7.obj dlaed8.obj dlaed9.obj dlaeda.obj dlaev2.obj dlagtf.obj \
+   dlagts.obj dlamrg.obj dlanst.obj \
+   dlapy2.obj dlapy3.obj dlarnv.obj \
+   dlarra.obj dlarrb.obj dlarrc.obj dlarrd.obj dlarre.obj dlarrf.obj dlarrj.obj \
+   dlarrk.obj dlarrr.obj dlaneg.obj \
+   dlartg.obj dlaruv.obj dlas2.obj  dlascl.obj \
+   dlasd0.obj dlasd1.obj dlasd2.obj dlasd3.obj dlasd4.obj dlasd5.obj dlasd6.obj \
+   dlasd7.obj dlasd8.obj dlasda.obj dlasdq.obj dlasdt.obj \
+   dlaset.obj dlasq1.obj dlasq2.obj dlasq3.obj dlasq4.obj dlasq5.obj dlasq6.obj \
+   dlasr.obj  dlasrt.obj dlassq.obj dlasv2.obj dpttrf.obj dstebz.obj dstedc.obj \
+   dsteqr.obj dsterf.obj dlaisnan.obj disnan.obj \
+   dlartgp.obj dlartgs.obj ..\INSTALL\droundup_lwork.obj \
+   ..\INSTALL\dlamch.obj ..\INSTALL\dsecnd_$(TIMER).obj
+
+SLASRC = \
+   sbdsvdx.obj spotrf2.obj sgetrf2.obj \
+   sgbbrd.obj sgbcon.obj sgbequ.obj sgbrfs.obj sgbsv.obj \
+   sgbsvx.obj sgbtf2.obj sgbtrf.obj sgbtrs.obj sgebak.obj sgebal.obj sgebd2.obj \
+   sgebrd.obj sgecon.obj sgeequ.obj sgees.obj  sgeesx.obj sgeev.obj  sgeevx.obj \
+   sgehd2.obj sgehrd.obj sgelq2.obj sgelqf.obj \
+   sgels.obj  sgelst.obj sgelsd.obj sgelss.obj sgelsy.obj sgeql2.obj sgeqlf.obj \
+   sgeqp3.obj sgeqp3rk.obj sgeqr2.obj sgeqr2p.obj sgeqrf.obj sgeqrfp.obj sgerfs.obj \
+   sgerq2.obj sgerqf.obj sgesc2.obj sgesdd.obj sgesv.obj  sgesvd.obj sgesvdx.obj sgesvx.obj \
+   sgetc2.obj sgetf2.obj sgetri.obj \
+   sggbak.obj sggbal.obj sgges.obj  sgges3.obj sggesx.obj \
+   sggev.obj  sggev3.obj sggevx.obj \
+   sggglm.obj sgghrd.obj sgghd3.obj sgglse.obj sggqrf.obj \
+   sggrqf.obj sggsvd3.obj sggsvp3.obj sgtcon.obj sgtrfs.obj sgtsv.obj \
+   sgtsvx.obj sgttrf.obj sgttrs.obj sgtts2.obj shgeqz.obj \
+   slaqz0.obj slaqz1.obj slaqz2.obj slaqz3.obj slaqz4.obj \
+   shsein.obj shseqr.obj slabrd.obj slacon.obj slacn2.obj \
+   slaein.obj slaexc.obj slag2.obj  slags2.obj slagtm.obj slagv2.obj slahqr.obj \
+   slahr2.obj slaic1.obj slaln2.obj slals0.obj slalsa.obj slalsd.obj \
+   slangb.obj slange.obj slangt.obj slanhs.obj slansb.obj slansp.obj \
+   slansy.obj slantb.obj slantp.obj slantr.obj slanv2.obj \
+   slapll.obj slapmt.obj \
+   slaqgb.obj slaqge.obj slaqp2.obj slaqps.obj slaqp2rk.obj slaqp3rk.obj slaqsb.obj slaqsp.obj slaqsy.obj \
+   slaqr0.obj slaqr1.obj slaqr2.obj slaqr3.obj slaqr4.obj slaqr5.obj \
+   slaqtr.obj slar1v.obj slar2v.obj ilaslr.obj ilaslc.obj \
+   slarf.obj  slarf1f.obj slarf1l.obj slarfb.obj slarfb_gett.obj slarfg.obj slarfgp.obj slarft.obj slarfx.obj slarfy.obj \
+   slargv.obj slarmm.obj slarrv.obj slartv.obj \
+   slarz.obj  slarzb.obj slarzt.obj slaswp.obj slasy2.obj slasyf.obj slasyf_rook.obj \
+   slasyf_rk.obj \
+   slatbs.obj slatdf.obj slatps.obj slatrd.obj slatrs.obj slatrs3.obj slatrz.obj \
+   slauu2.obj slauum.obj sopgtr.obj sopmtr.obj sorg2l.obj sorg2r.obj \
+   sorgbr.obj sorghr.obj sorgl2.obj sorglq.obj sorgql.obj sorgqr.obj sorgr2.obj \
+   sorgrq.obj sorgtr.obj sorgtsqr.obj sorgtsqr_row.obj sorm2l.obj sorm2r.obj sorm22.obj \
+   sormbr.obj sormhr.obj sorml2.obj sormlq.obj sormql.obj sormqr.obj sormr2.obj \
+   sormr3.obj sormrq.obj sormrz.obj sormtr.obj spbcon.obj spbequ.obj spbrfs.obj \
+   spbstf.obj spbsv.obj  spbsvx.obj \
+   spbtf2.obj spbtrf.obj spbtrs.obj spocon.obj spoequ.obj sporfs.obj sposv.obj \
+   sposvx.obj spotf2.obj spotri.obj spstrf.obj spstf2.obj \
+   sppcon.obj sppequ.obj \
+   spprfs.obj sppsv.obj  sppsvx.obj spptrf.obj spptri.obj spptrs.obj sptcon.obj \
+   spteqr.obj sptrfs.obj sptsv.obj  sptsvx.obj spttrs.obj sptts2.obj srscl.obj \
+   ssbev.obj  ssbevd.obj ssbevx.obj ssbgst.obj ssbgv.obj  ssbgvd.obj ssbgvx.obj \
+   ssbtrd.obj sspcon.obj sspev.obj  sspevd.obj sspevx.obj sspgst.obj \
+   sspgv.obj  sspgvd.obj sspgvx.obj ssprfs.obj sspsv.obj  sspsvx.obj ssptrd.obj \
+   ssptrf.obj ssptri.obj ssptrs.obj sstegr.obj sstein.obj sstev.obj  sstevd.obj sstevr.obj \
+   sstevx.obj \
+   ssycon.obj ssyev.obj  ssyevd.obj ssyevr.obj ssyevx.obj ssygs2.obj \
+   ssygst.obj ssygv.obj  ssygvd.obj ssygvx.obj ssyrfs.obj ssysv.obj  ssysvx.obj \
+   ssytd2.obj ssytf2.obj ssytrd.obj ssytrf.obj ssytri.obj ssytri2.obj ssytri2x.obj \
+   ssyswapr.obj ssytrs.obj ssytrs2.obj \
+   ssyconv.obj ssyconvf.obj ssyconvf_rook.obj \
+   ssytf2_rook.obj ssytrf_rook.obj ssytrs_rook.obj \
+   ssytri_rook.obj ssycon_rook.obj ssysv_rook.obj \
+   ssytf2_rk.obj ssytrf_rk.obj ssytrs_3.obj \
+   ssytri_3.obj ssytri_3x.obj ssycon_3.obj ssysv_rk.obj \
+   slasyf_aa.obj ssysv_aa.obj ssytrf_aa.obj ssytrs_aa.obj \
+   ssysv_aa_2stage.obj ssytrf_aa_2stage.obj ssytrs_aa_2stage.obj \
+   stbcon.obj \
+   stbrfs.obj stbtrs.obj stgevc.obj stgex2.obj stgexc.obj stgsen.obj \
+   stgsja.obj stgsna.obj stgsy2.obj stgsyl.obj stpcon.obj stprfs.obj stptri.obj \
+   stptrs.obj \
+   strcon.obj strevc.obj strevc3.obj strexc.obj strrfs.obj strsen.obj strsna.obj strsyl.obj \
+   strsyl3.obj strti2.obj strtri.obj strtrs.obj stzrzf.obj sstemr.obj \
+   slansf.obj spftrf.obj spftri.obj spftrs.obj ssfrk.obj stfsm.obj stftri.obj stfttp.obj \
+   stfttr.obj stpttf.obj stpttr.obj strttf.obj strttp.obj \
+   sgejsv.obj sgesvj.obj sgsvj0.obj sgsvj1.obj \
+   sgeequb.obj ssyequb.obj spoequb.obj sgbequb.obj \
+   sbbcsd.obj slapmr.obj sorbdb.obj sorbdb1.obj sorbdb2.obj sorbdb3.obj sorbdb4.obj \
+   sorbdb5.obj sorbdb6.obj sorcsd.obj sorcsd2by1.obj \
+   sgeqrt.obj sgeqrt2.obj sgeqrt3.obj sgemqrt.obj \
+   stpqrt.obj stpqrt2.obj stpmqrt.obj stprfb.obj \
+   sgelqt.obj sgelqt3.obj sgemlqt.obj \
+   sgetsls.obj sgetsqrhrt.obj sgeqr.obj slatsqr.obj slamtsqr.obj sgemqr.obj \
+   sgelq.obj slaswlq.obj slamswlq.obj sgemlq.obj \
+   stplqt.obj stplqt2.obj stpmlqt.obj \
+   sorhr_col.obj slaorhr_col_getrfnp.obj slaorhr_col_getrfnp2.obj \
+   ssytrd_2stage.obj ssytrd_sy2sb.obj ssytrd_sb2st.obj ssb2st_kernels.obj \
+   ssyevd_2stage.obj ssyev_2stage.obj ssyevx_2stage.obj ssyevr_2stage.obj \
+   ssbev_2stage.obj ssbevx_2stage.obj ssbevd_2stage.obj ssygv_2stage.obj \
+   sgesvdq.obj sgedmd.obj sgedmdq.obj
+
+DSLASRC = spotrs.obj sgetrs.obj spotrf.obj sgetrf.obj
+
+CLASRC = \
+   cpotrf2.obj cgetrf2.obj \
+   cbdsqr.obj cgbbrd.obj cgbcon.obj cgbequ.obj cgbrfs.obj cgbsv.obj  cgbsvx.obj \
+   cgbtf2.obj cgbtrf.obj cgbtrs.obj cgebak.obj cgebal.obj cgebd2.obj cgebrd.obj \
+   cgecon.obj cgeequ.obj cgees.obj  cgeesx.obj cgeev.obj  cgeevx.obj \
+   cgehd2.obj cgehrd.obj cgelq2.obj cgelqf.obj \
+   cgels.obj  cgelst.obj cgelsd.obj cgelss.obj cgelsy.obj cgeql2.obj cgeqlf.obj \
+   cgeqp3.obj cgeqp3rk.obj cgeqr2.obj cgeqr2p.obj cgeqrf.obj cgeqrfp.obj cgerfs.obj \
+   cgerq2.obj cgerqf.obj cgesc2.obj cgesdd.obj cgesv.obj  cgesvd.obj  cgesvdx.obj \
+   cgesvj.obj cgejsv.obj cgsvj0.obj cgsvj1.obj \
+   cgesvx.obj cgetc2.obj cgetf2.obj cgetri.obj \
+   cggbak.obj cggbal.obj cgges.obj  cgges3.obj cggesx.obj \
+   cggev.obj  cggev3.obj cggevx.obj cggglm.obj \
+   cgghrd.obj cgghd3.obj cgglse.obj cggqrf.obj cggrqf.obj \
+   cggsvd3.obj cggsvp3.obj \
+   cgtcon.obj cgtrfs.obj cgtsv.obj  cgtsvx.obj cgttrf.obj cgttrs.obj cgtts2.obj chbev.obj \
+   chbevd.obj chbevx.obj chbgst.obj chbgv.obj  chbgvd.obj chbgvx.obj chbtrd.obj \
+   checon.obj cheev.obj  cheevd.obj cheevr.obj cheevx.obj chegs2.obj chegst.obj \
+   chegv.obj  chegvd.obj chegvx.obj cherfs.obj chesv.obj  chesvx.obj chetd2.obj \
+   chetf2.obj chetrd.obj \
+   chetrf.obj chetri.obj chetri2.obj chetri2x.obj cheswapr.obj \
+   chetrs.obj chetrs2.obj \
+   chetf2_rook.obj chetrf_rook.obj chetri_rook.obj \
+   chetrs_rook.obj checon_rook.obj chesv_rook.obj \
+   chetf2_rk.obj chetrf_rk.obj chetri_3.obj chetri_3x.obj \
+   chetrs_3.obj checon_3.obj chesv_rk.obj \
+   chesv_aa.obj chetrf_aa.obj chetrs_aa.obj clahef_aa.obj \
+   chesv_aa_2stage.obj chetrf_aa_2stage.obj chetrs_aa_2stage.obj \
+   chgeqz.obj chpcon.obj chpev.obj  chpevd.obj \
+   claqz0.obj claqz1.obj claqz2.obj claqz3.obj \
+   chpevx.obj chpgst.obj chpgv.obj  chpgvd.obj chpgvx.obj chprfs.obj chpsv.obj \
+   chpsvx.obj \
+   chptrd.obj chptrf.obj chptri.obj chptrs.obj chsein.obj chseqr.obj clabrd.obj \
+   clacgv.obj clacon.obj clacn2.obj clacp2.obj clacpy.obj clacrm.obj clacrt.obj cladiv.obj \
+   claed0.obj claed7.obj claed8.obj \
+   claein.obj claesy.obj claev2.obj clags2.obj clagtm.obj \
+   clahef.obj clahef_rook.obj clahef_rk.obj clahqr.obj \
+   clahr2.obj claic1.obj clals0.obj clalsa.obj clalsd.obj clangb.obj clange.obj clangt.obj \
+   clanhb.obj clanhe.obj \
+   clanhp.obj clanhs.obj clanht.obj clansb.obj clansp.obj clansy.obj clantb.obj \
+   clantp.obj clantr.obj clapll.obj clapmt.obj clarcm.obj claqgb.obj claqge.obj \
+   claqhb.obj claqhe.obj claqhp.obj claqp2.obj claqps.obj claqp2rk.obj claqp3rk.obj claqsb.obj \
+   claqr0.obj claqr1.obj claqr2.obj claqr3.obj claqr4.obj claqr5.obj \
+   claqsp.obj claqsy.obj clar1v.obj clar2v.obj ilaclr.obj ilaclc.obj \
+   clarf.obj  clarf1f.obj clarf1l.obj clarfb.obj clarfb_gett.obj clarfg.obj clarft.obj clarfgp.obj \
+   clarfx.obj clarfy.obj clargv.obj clarnv.obj clarrv.obj clartg.obj clartv.obj \
+   clarz.obj  clarzb.obj clarzt.obj clascl.obj claset.obj clasr.obj  classq.obj \
+   claswp.obj clasyf.obj clasyf_rook.obj clasyf_rk.obj clasyf_aa.obj \
+   clatbs.obj clatdf.obj clatps.obj clatrd.obj clatrs.obj clatrs3.obj clatrz.obj \
+   clauu2.obj clauum.obj cpbcon.obj cpbequ.obj cpbrfs.obj cpbstf.obj cpbsv.obj \
+   cpbsvx.obj cpbtf2.obj cpbtrf.obj cpbtrs.obj cpocon.obj cpoequ.obj cporfs.obj \
+   cposv.obj  cposvx.obj cpotf2.obj cpotri.obj cpstrf.obj cpstf2.obj \
+   cppcon.obj cppequ.obj cpprfs.obj cppsv.obj  cppsvx.obj cpptrf.obj cpptri.obj cpptrs.obj \
+   cptcon.obj cpteqr.obj cptrfs.obj cptsv.obj  cptsvx.obj cpttrf.obj cpttrs.obj cptts2.obj \
+   crot.obj   cspcon.obj cspmv.obj  cspr.obj   csprfs.obj cspsv.obj \
+   cspsvx.obj csptrf.obj csptri.obj csptrs.obj csrscl.obj crscl.obj cstedc.obj \
+   cstegr.obj cstein.obj csteqr.obj \
+   csycon.obj csymv.obj \
+   csyr.obj csyrfs.obj csysv.obj csysvx.obj csytf2.obj csytrf.obj csytri.obj csytri2.obj csytri2x.obj \
+   csyswapr.obj csytrs.obj csytrs2.obj \
+   csyconv.obj csyconvf.obj csyconvf_rook.obj \
+   csytf2_rook.obj csytrf_rook.obj csytrs_rook.obj \
+   csytri_rook.obj csycon_rook.obj csysv_rook.obj \
+   csytf2_rk.obj csytrf_rk.obj csytrf_aa.obj csytrs_3.obj csytrs_aa.obj \
+   csytri_3.obj csytri_3x.obj csycon_3.obj csysv_rk.obj csysv_aa.obj \
+   csysv_aa_2stage.obj csytrf_aa_2stage.obj csytrs_aa_2stage.obj \
+   ctbcon.obj ctbrfs.obj ctbtrs.obj ctgevc.obj ctgex2.obj \
+   ctgexc.obj ctgsen.obj ctgsja.obj ctgsna.obj ctgsy2.obj ctgsyl.obj ctpcon.obj \
+   ctprfs.obj ctptri.obj \
+   ctptrs.obj ctrcon.obj ctrevc.obj ctrevc3.obj ctrexc.obj ctrrfs.obj ctrsen.obj ctrsna.obj \
+   ctrsyl.obj ctrsyl3.obj ctrti2.obj ctrtri.obj ctrtrs.obj ctzrzf.obj cung2l.obj cung2r.obj \
+   cungbr.obj cunghr.obj cungl2.obj cunglq.obj cungql.obj cungqr.obj cungr2.obj \
+   cungrq.obj cungtr.obj cungtsqr.obj cungtsqr_row.obj cunm2l.obj cunm2r.obj cunmbr.obj cunmhr.obj cunml2.obj cunm22.obj \
+   cunmlq.obj cunmql.obj cunmqr.obj cunmr2.obj cunmr3.obj cunmrq.obj cunmrz.obj \
+   cunmtr.obj cupgtr.obj cupmtr.obj icmax1.obj scsum1.obj cstemr.obj \
+   chfrk.obj ctfttp.obj clanhf.obj cpftrf.obj cpftri.obj cpftrs.obj ctfsm.obj ctftri.obj \
+   ctfttr.obj ctpttf.obj ctpttr.obj ctrttf.obj ctrttp.obj \
+   cgeequb.obj cgbequb.obj csyequb.obj cpoequb.obj cheequb.obj \
+   cbbcsd.obj clapmr.obj cunbdb.obj cunbdb1.obj cunbdb2.obj cunbdb3.obj cunbdb4.obj \
+   cunbdb5.obj cunbdb6.obj cuncsd.obj cuncsd2by1.obj \
+   cgeqrt.obj cgeqrt2.obj cgeqrt3.obj cgemqrt.obj \
+   ctpqrt.obj ctpqrt2.obj ctpmqrt.obj ctprfb.obj \
+   cgelqt.obj cgelqt3.obj cgemlqt.obj \
+   cgetsls.obj cgetsqrhrt.obj cgeqr.obj clatsqr.obj clamtsqr.obj cgemqr.obj \
+   cgelq.obj claswlq.obj clamswlq.obj cgemlq.obj \
+   ctplqt.obj ctplqt2.obj ctpmlqt.obj \
+   cunhr_col.obj claunhr_col_getrfnp.obj claunhr_col_getrfnp2.obj \
+   chetrd_2stage.obj chetrd_he2hb.obj chetrd_hb2st.obj chb2st_kernels.obj \
+   cheevd_2stage.obj cheev_2stage.obj cheevx_2stage.obj cheevr_2stage.obj \
+   chbev_2stage.obj chbevx_2stage.obj chbevd_2stage.obj chegv_2stage.obj \
+   cgesvdq.obj cgedmd.obj cgedmdq.obj
+
+ZCLASRC = cpotrs.obj cgetrs.obj cpotrf.obj cgetrf.obj
+
+DLASRC = \
+   dpotrf2.obj dgetrf2.obj \
+   dbdsvdx.obj \
+   dgbbrd.obj dgbcon.obj dgbequ.obj dgbrfs.obj dgbsv.obj \
+   dgbsvx.obj dgbtf2.obj dgbtrf.obj dgbtrs.obj dgebak.obj dgebal.obj dgebd2.obj \
+   dgebrd.obj dgecon.obj dgeequ.obj dgees.obj  dgeesx.obj dgeev.obj  dgeevx.obj \
+   dgehd2.obj dgehrd.obj dgelq2.obj dgelqf.obj \
+   dgels.obj  dgelst.obj dgelsd.obj dgelss.obj dgelsy.obj dgeql2.obj dgeqlf.obj \
+   dgeqp3.obj dgeqp3rk.obj dgeqr2.obj dgeqr2p.obj dgeqrf.obj dgeqrfp.obj dgerfs.obj \
+   dgerq2.obj dgerqf.obj dgesc2.obj dgesdd.obj dgesv.obj  dgesvd.obj dgesvdx.obj dgesvx.obj \
+   dgetc2.obj dgetf2.obj dgetrf.obj dgetri.obj \
+   dgetrs.obj dggbak.obj dggbal.obj dgges.obj  dgges3.obj dggesx.obj \
+   dggev.obj  dggev3.obj dggevx.obj \
+   dggglm.obj dgghrd.obj dgghd3.obj dgglse.obj dggqrf.obj \
+   dggrqf.obj dggsvd3.obj dggsvp3.obj dgtcon.obj dgtrfs.obj dgtsv.obj \
+   dgtsvx.obj dgttrf.obj dgttrs.obj dgtts2.obj dhgeqz.obj \
+   dlaqz0.obj dlaqz1.obj dlaqz2.obj dlaqz3.obj dlaqz4.obj \
+   dhsein.obj dhseqr.obj dlabrd.obj dlacon.obj dlacn2.obj \
+   dlaein.obj dlaexc.obj dlag2.obj  dlags2.obj dlagtm.obj dlagv2.obj dlahqr.obj \
+   dlahr2.obj dlaic1.obj dlaln2.obj dlals0.obj dlalsa.obj dlalsd.obj \
+   dlangb.obj dlange.obj dlangt.obj dlanhs.obj dlansb.obj dlansp.obj \
+   dlansy.obj dlantb.obj dlantp.obj dlantr.obj dlanv2.obj \
+   dlapll.obj dlapmt.obj \
+   dlaqgb.obj dlaqge.obj dlaqp2.obj dlaqps.obj dlaqp2rk.obj dlaqp3rk.obj dlaqsb.obj dlaqsp.obj dlaqsy.obj \
+   dlaqr0.obj dlaqr1.obj dlaqr2.obj dlaqr3.obj dlaqr4.obj dlaqr5.obj \
+   dlaqtr.obj dlar1v.obj dlar2v.obj iladlr.obj iladlc.obj \
+   dlarf.obj  dlarfb.obj dlarfb_gett.obj dlarfg.obj dlarfgp.obj dlarft.obj dlarfx.obj dlarfy.obj dlarf1f.obj dlarf1l.obj\
+   dlargv.obj dlarmm.obj dlarrv.obj dlartv.obj \
+   dlarz.obj  dlarzb.obj dlarzt.obj dlaswp.obj dlasy2.obj \
+   dlasyf.obj dlasyf_rook.obj dlasyf_rk.obj \
+   dlatbs.obj dlatdf.obj dlatps.obj dlatrd.obj dlatrs.obj dlatrs3.obj dlatrz.obj dlauu2.obj \
+   dlauum.obj dopgtr.obj dopmtr.obj dorg2l.obj dorg2r.obj \
+   dorgbr.obj dorghr.obj dorgl2.obj dorglq.obj dorgql.obj dorgqr.obj dorgr2.obj \
+   dorgrq.obj dorgtr.obj dorgtsqr.obj dorgtsqr_row.obj dorm2l.obj dorm2r.obj dorm22.obj \
+   dormbr.obj dormhr.obj dorml2.obj dormlq.obj dormql.obj dormqr.obj dormr2.obj \
+   dormr3.obj dormrq.obj dormrz.obj dormtr.obj dpbcon.obj dpbequ.obj dpbrfs.obj \
+   dpbstf.obj dpbsv.obj  dpbsvx.obj \
+   dpbtf2.obj dpbtrf.obj dpbtrs.obj dpocon.obj dpoequ.obj dporfs.obj dposv.obj \
+   dposvx.obj dpotf2.obj dpotrf.obj dpotri.obj dpotrs.obj dpstrf.obj dpstf2.obj \
+   dppcon.obj dppequ.obj \
+   dpprfs.obj dppsv.obj  dppsvx.obj dpptrf.obj dpptri.obj dpptrs.obj dptcon.obj \
+   dpteqr.obj dptrfs.obj dptsv.obj  dptsvx.obj dpttrs.obj dptts2.obj drscl.obj \
+   dsbev.obj  dsbevd.obj dsbevx.obj dsbgst.obj dsbgv.obj  dsbgvd.obj dsbgvx.obj \
+   dsbtrd.obj dspcon.obj dspev.obj  dspevd.obj dspevx.obj dspgst.obj \
+   dspgv.obj  dspgvd.obj dspgvx.obj dsprfs.obj dspsv.obj  dspsvx.obj dsptrd.obj \
+   dsptrf.obj dsptri.obj dsptrs.obj dstegr.obj dstein.obj dstev.obj  dstevd.obj dstevr.obj \
+   dstevx.obj \
+   dsycon.obj dsyev.obj  dsyevd.obj dsyevr.obj \
+   dsyevx.obj dsygs2.obj dsygst.obj dsygv.obj  dsygvd.obj dsygvx.obj dsyrfs.obj \
+   dsysv.obj  dsysvx.obj \
+   dsytd2.obj dsytf2.obj dsytrd.obj dsytrf.obj dsytri.obj dsytri2.obj dsytri2x.obj \
+   dsyswapr.obj dsytrs.obj dsytrs2.obj \
+   dsyconv.obj dsyconvf.obj dsyconvf_rook.obj \
+   dsytf2_rook.obj dsytrf_rook.obj dsytrs_rook.obj \
+   dsytri_rook.obj dsycon_rook.obj dsysv_rook.obj \
+   dsytf2_rk.obj dsytrf_rk.obj dsytrs_3.obj \
+   dsytri_3.obj dsytri_3x.obj dsycon_3.obj dsysv_rk.obj \
+   dlasyf_aa.obj dsysv_aa.obj dsytrf_aa.obj dsytrs_aa.obj \
+   dsysv_aa_2stage.obj dsytrf_aa_2stage.obj dsytrs_aa_2stage.obj \
+   dtbcon.obj dtbrfs.obj dtbtrs.obj dtgevc.obj dtgex2.obj dtgexc.obj dtgsen.obj \
+   dtgsja.obj dtgsna.obj dtgsy2.obj dtgsyl.obj dtpcon.obj dtprfs.obj dtptri.obj \
+   dtptrs.obj \
+   dtrcon.obj dtrevc.obj dtrevc3.obj dtrexc.obj dtrrfs.obj dtrsen.obj dtrsna.obj dtrsyl.obj \
+   dtrsyl3.obj dtrti2.obj dtrtri.obj dtrtrs.obj dtzrzf.obj dstemr.obj \
+   dsgesv.obj dsposv.obj dlag2s.obj slag2d.obj dlat2s.obj \
+   dlansf.obj dpftrf.obj dpftri.obj dpftrs.obj dsfrk.obj dtfsm.obj dtftri.obj dtfttp.obj \
+   dtfttr.obj dtpttf.obj dtpttr.obj dtrttf.obj dtrttp.obj \
+   dgejsv.obj dgesvj.obj dgsvj0.obj dgsvj1.obj \
+   dgeequb.obj dsyequb.obj dpoequb.obj dgbequb.obj \
+   dbbcsd.obj dlapmr.obj dorbdb.obj dorbdb1.obj dorbdb2.obj dorbdb3.obj dorbdb4.obj \
+   dorbdb5.obj dorbdb6.obj dorcsd.obj dorcsd2by1.obj \
+   dgeqrt.obj dgeqrt2.obj dgeqrt3.obj dgemqrt.obj \
+   dtpqrt.obj dtpqrt2.obj dtpmqrt.obj dtprfb.obj \
+   dgelqt.obj dgelqt3.obj dgemlqt.obj \
+   dgetsls.obj dgetsqrhrt.obj dgeqr.obj dlatsqr.obj dlamtsqr.obj dgemqr.obj \
+   dgelq.obj dlaswlq.obj dlamswlq.obj dgemlq.obj \
+   dtplqt.obj dtplqt2.obj dtpmlqt.obj \
+   dorhr_col.obj dlaorhr_col_getrfnp.obj dlaorhr_col_getrfnp2.obj \
+   dsytrd_2stage.obj dsytrd_sy2sb.obj dsytrd_sb2st.obj dsb2st_kernels.obj \
+   dsyevd_2stage.obj dsyev_2stage.obj dsyevx_2stage.obj dsyevr_2stage.obj \
+   dsbev_2stage.obj dsbevx_2stage.obj dsbevd_2stage.obj dsygv_2stage.obj \
+   dgesvdq.obj dgedmd.obj dgedmdq.obj
+
+ZLASRC = \
+   zpotrf2.obj zgetrf2.obj \
+   zbdsqr.obj zgbbrd.obj zgbcon.obj zgbequ.obj zgbrfs.obj zgbsv.obj  zgbsvx.obj \
+   zgbtf2.obj zgbtrf.obj zgbtrs.obj zgebak.obj zgebal.obj zgebd2.obj zgebrd.obj \
+   zgecon.obj zgeequ.obj zgees.obj  zgeesx.obj zgeev.obj  zgeevx.obj \
+   zgehd2.obj zgehrd.obj zgelq2.obj zgelqf.obj \
+   zgels.obj zgelst.obj zgelsd.obj zgelss.obj zgelsy.obj zgeql2.obj zgeqlf.obj \
+   zgeqp3.obj zgeqp3rk.obj \
+   zgeqr2.obj zgeqr2p.obj zgeqrf.obj zgeqrfp.obj zgerfs.obj zgerq2.obj zgerqf.obj \
+   zgesc2.obj zgesdd.obj zgesv.obj  zgesvd.obj zgesvdx.obj \
+   zgesvj.obj zgejsv.obj zgsvj0.obj zgsvj1.obj \
+   zgesvx.obj zgetc2.obj zgetf2.obj zgetrf.obj \
+   zgetri.obj zgetrs.obj \
+   zggbak.obj zggbal.obj zgges.obj  zgges3.obj zggesx.obj \
+   zggev.obj  zggev3.obj zggevx.obj zggglm.obj \
+   zgghrd.obj zgghd3.obj zgglse.obj zggqrf.obj zggrqf.obj \
+   zggsvd3.obj zggsvp3.obj \
+   zgtcon.obj zgtrfs.obj zgtsv.obj  zgtsvx.obj zgttrf.obj zgttrs.obj zgtts2.obj zhbev.obj \
+   zhbevd.obj zhbevx.obj zhbgst.obj zhbgv.obj  zhbgvd.obj zhbgvx.obj zhbtrd.obj \
+   zhecon.obj zheev.obj  zheevd.obj zheevr.obj zheevx.obj zhegs2.obj zhegst.obj \
+   zhegv.obj  zhegvd.obj zhegvx.obj zherfs.obj zhesv.obj  zhesvx.obj zhetd2.obj \
+   zhetf2.obj zhetrd.obj \
+   zhetrf.obj zhetri.obj zhetri2.obj zhetri2x.obj zheswapr.obj \
+   zhetrs.obj zhetrs2.obj \
+   zhetf2_rook.obj zhetrf_rook.obj zhetri_rook.obj \
+   zhetrs_rook.obj zhecon_rook.obj zhesv_rook.obj \
+   zhetf2_rk.obj zhetrf_rk.obj zhetri_3.obj zhetri_3x.obj \
+   zhetrs_3.obj zhecon_3.obj zhesv_rk.obj \
+   zhesv_aa.obj zhetrf_aa.obj zhetrs_aa.obj zlahef_aa.obj \
+   zhesv_aa_2stage.obj zhetrf_aa_2stage.obj zhetrs_aa_2stage.obj \
+   zhgeqz.obj zhpcon.obj zhpev.obj  zhpevd.obj \
+   zlaqz0.obj zlaqz1.obj zlaqz2.obj zlaqz3.obj \
+   zhpevx.obj zhpgst.obj zhpgv.obj  zhpgvd.obj zhpgvx.obj zhprfs.obj zhpsv.obj \
+   zhpsvx.obj \
+   zhptrd.obj zhptrf.obj zhptri.obj zhptrs.obj zhsein.obj zhseqr.obj zlabrd.obj \
+   zlacgv.obj zlacon.obj zlacn2.obj zlacp2.obj zlacpy.obj zlacrm.obj zlacrt.obj zladiv.obj \
+   zlaed0.obj zlaed7.obj zlaed8.obj \
+   zlaein.obj zlaesy.obj zlaev2.obj zlags2.obj zlagtm.obj \
+   zlahef.obj zlahef_rook.obj zlahef_rk.obj zlahqr.obj \
+   zlahr2.obj zlaic1.obj zlals0.obj zlalsa.obj zlalsd.obj zlangb.obj zlange.obj \
+   zlangt.obj zlanhb.obj \
+   zlanhe.obj \
+   zlanhp.obj zlanhs.obj zlanht.obj zlansb.obj zlansp.obj zlansy.obj zlantb.obj \
+   zlantp.obj zlantr.obj zlapll.obj zlapmt.obj zlaqgb.obj zlaqge.obj \
+   zlaqhb.obj zlaqhe.obj zlaqhp.obj zlaqp2.obj zlaqps.obj zlaqp2rk.obj zlaqp3rk.obj zlaqsb.obj \
+   zlaqr0.obj zlaqr1.obj zlaqr2.obj zlaqr3.obj zlaqr4.obj zlaqr5.obj \
+   zlaqsp.obj zlaqsy.obj zlar1v.obj zlar2v.obj ilazlr.obj ilazlc.obj \
+   zlarcm.obj zlarf.obj  zlarfb.obj zlarfb_gett.obj zlarf1f.obj zlarf1l.obj \
+   zlarfg.obj zlarft.obj zlarfgp.obj \
+   zlarfx.obj zlarfy.obj zlargv.obj zlarnv.obj zlarrv.obj zlartg.obj zlartv.obj \
+   zlarz.obj  zlarzb.obj zlarzt.obj zlascl.obj zlaset.obj zlasr.obj \
+   zlassq.obj zlaswp.obj zlasyf.obj zlasyf_rook.obj zlasyf_rk.obj zlasyf_aa.obj \
+   zlatbs.obj zlatdf.obj zlatps.obj zlatrd.obj zlatrs.obj zlatrs3.obj zlatrz.obj zlauu2.obj \
+   zlauum.obj zpbcon.obj zpbequ.obj zpbrfs.obj zpbstf.obj zpbsv.obj \
+   zpbsvx.obj zpbtf2.obj zpbtrf.obj zpbtrs.obj zpocon.obj zpoequ.obj zporfs.obj \
+   zposv.obj  zposvx.obj zpotf2.obj zpotrf.obj zpotri.obj zpotrs.obj zpstrf.obj zpstf2.obj \
+   zppcon.obj zppequ.obj zpprfs.obj zppsv.obj  zppsvx.obj zpptrf.obj zpptri.obj zpptrs.obj \
+   zptcon.obj zpteqr.obj zptrfs.obj zptsv.obj  zptsvx.obj zpttrf.obj zpttrs.obj zptts2.obj \
+   zrot.obj   zspcon.obj zspmv.obj  zspr.obj   zsprfs.obj zspsv.obj \
+   zspsvx.obj zsptrf.obj zsptri.obj zsptrs.obj zdrscl.obj zrscl.obj zstedc.obj \
+   zstegr.obj zstein.obj zsteqr.obj \
+   zsycon.obj zsymv.obj \
+   zsyr.obj zsyrfs.obj zsysv.obj zsysvx.obj zsytf2.obj zsytrf.obj zsytri.obj zsytri2.obj zsytri2x.obj \
+   zsyswapr.obj zsytrs.obj zsytrs2.obj \
+   zsyconv.obj zsyconvf.obj zsyconvf_rook.obj \
+   zsytf2_rook.obj zsytrf_rook.obj zsytrs_rook.obj zsytrs_aa.obj \
+   zsytri_rook.obj zsycon_rook.obj zsysv_rook.obj \
+   zsysv_aa_2stage.obj zsytrf_aa_2stage.obj zsytrs_aa_2stage.obj \
+   zsytf2_rk.obj zsytrf_rk.obj zsytrf_aa.obj zsytrs_3.obj \
+   zsytri_3.obj zsytri_3x.obj zsycon_3.obj zsysv_rk.obj zsysv_aa.obj \
+   ztbcon.obj ztbrfs.obj ztbtrs.obj ztgevc.obj ztgex2.obj \
+   ztgexc.obj ztgsen.obj ztgsja.obj ztgsna.obj ztgsy2.obj ztgsyl.obj ztpcon.obj \
+   ztprfs.obj ztptri.obj \
+   ztptrs.obj ztrcon.obj ztrevc.obj ztrevc3.obj ztrexc.obj ztrrfs.obj ztrsen.obj ztrsna.obj \
+   ztrsyl.obj ztrsyl3.obj ztrti2.obj ztrtri.obj ztrtrs.obj ztzrzf.obj zung2l.obj \
+   zung2r.obj zungbr.obj zunghr.obj zungl2.obj zunglq.obj zungql.obj zungqr.obj zungr2.obj \
+   zungrq.obj zungtr.obj zungtsqr.obj zungtsqr_row.obj zunm2l.obj zunm2r.obj zunmbr.obj zunmhr.obj zunml2.obj zunm22.obj \
+   zunmlq.obj zunmql.obj zunmqr.obj zunmr2.obj zunmr3.obj zunmrq.obj zunmrz.obj \
+   zunmtr.obj zupgtr.obj \
+   zupmtr.obj izmax1.obj dzsum1.obj zstemr.obj \
+   zcgesv.obj zcposv.obj zlag2c.obj clag2z.obj zlat2c.obj \
+   zhfrk.obj ztfttp.obj zlanhf.obj zpftrf.obj zpftri.obj zpftrs.obj ztfsm.obj ztftri.obj \
+   ztfttr.obj ztpttf.obj ztpttr.obj ztrttf.obj ztrttp.obj \
+   zgeequb.obj zgbequb.obj zsyequb.obj zpoequb.obj zheequb.obj \
+   zbbcsd.obj zlapmr.obj zunbdb.obj zunbdb1.obj zunbdb2.obj zunbdb3.obj zunbdb4.obj \
+   zunbdb5.obj zunbdb6.obj zuncsd.obj zuncsd2by1.obj \
+   zgeqrt.obj zgeqrt2.obj zgeqrt3.obj zgemqrt.obj \
+   ztpqrt.obj ztpqrt2.obj ztpmqrt.obj ztprfb.obj \
+   ztplqt.obj ztplqt2.obj ztpmlqt.obj \
+   zgelqt.obj zgelqt3.obj zgemlqt.obj \
+   zgetsls.obj zgetsqrhrt.obj zgeqr.obj zlatsqr.obj zlamtsqr.obj zgemqr.obj \
+   zgelq.obj zlaswlq.obj zlamswlq.obj zgemlq.obj \
+   zunhr_col.obj zlaunhr_col_getrfnp.obj zlaunhr_col_getrfnp2.obj \
+   zhetrd_2stage.obj zhetrd_he2hb.obj zhetrd_hb2st.obj zhb2st_kernels.obj \
+   zheevd_2stage.obj zheev_2stage.obj zheevx_2stage.obj zheevr_2stage.obj \
+   zhbev_2stage.obj zhbevx_2stage.obj zhbevd_2stage.obj zhegv_2stage.obj \
+   zgesvdq.obj zgedmd.obj zgedmdq.obj
+
+DEPRECSRC = DEPRECATED\cgegs.obj DEPRECATED\cgegv.obj DEPRECATED\cgelqs.obj \
+   DEPRECATED\cgelsx.obj DEPRECATED\cgeqpf.obj DEPRECATED\cgeqrs.obj \
+   DEPRECATED\cggsvd.obj DEPRECATED\cggsvp.obj DEPRECATED\clahrd.obj \
+   DEPRECATED\clatzm.obj DEPRECATED\ctzrqf.obj \
+   DEPRECATED\dgegs.obj  DEPRECATED\dgegv.obj  DEPRECATED\dgelqs.obj \
+   DEPRECATED\dgelsx.obj DEPRECATED\dgeqpf.obj DEPRECATED\dgeqrs.obj \
+   DEPRECATED\dggsvd.obj DEPRECATED\dggsvp.obj DEPRECATED\dlahrd.obj \
+   DEPRECATED\dlatzm.obj DEPRECATED\dtzrqf.obj \
+   DEPRECATED\sgegs.obj  DEPRECATED\sgegv.obj  DEPRECATED\sgelqs.obj \
+   DEPRECATED\sgelsx.obj DEPRECATED\sgeqpf.obj DEPRECATED\sgeqrs.obj \
+   DEPRECATED\sggsvd.obj DEPRECATED\sggsvp.obj DEPRECATED\slahrd.obj \
+   DEPRECATED\slatzm.obj DEPRECATED\stzrqf.obj \
+   DEPRECATED\zgegs.obj  DEPRECATED\zgegv.obj  DEPRECATED\zgelqs.obj \
+   DEPRECATED\zgelsx.obj DEPRECATED\zgeqpf.obj DEPRECATED\zgeqrs.obj \
+   DEPRECATED\zggsvd.obj DEPRECATED\zggsvp.obj DEPRECATED\zlahrd.obj \
+   DEPRECATED\zlatzm.obj DEPRECATED\ztzrqf.obj
+
+ALLOBJ = $(SLASRC) $(DLASRC) $(DSLASRC) $(CLASRC) $(ZLASRC) $(ZCLASRC) \
+   $(SCLAUX) $(DZLAUX) $(ALLAUX)
+
+DEPRECATED = $(DEPRECSRC)
+
+all: $(ALLMOD) $(LAPACKLIB)
+
+LAPACKLIB_DEPS = $(ALLOBJ) $(DEPRECATED)
+
+
+$(LAPACKLIB): $(LAPACKLIB_DEPS)
+	$(AR) $(ARFLAGS) /OUT:$@ $**
+	$(RANLIB) $@
+
+
+SINGLE_DEPS = $(SLASRC) $(DSLASRC) $(SCLAUX) $(ALLAUX)
+
+single: $(SINGLE_DEPS)
+	$(AR) $(ARFLAGS) /OUT:$(LAPACKLIB) $**
+	$(RANLIB) $(LAPACKLIB)
+
+COMPLEX_DEPS = $(CLASRC) $(ZCLASRC) $(SCLAUX) $(ALLAUX)
+
+complex: $(COMPLEX_DEPS)
+	$(AR) $(ARFLAGS) /OUT:$(LAPACKLIB) $**
+	$(RANLIB) $(LAPACKLIB)
+
+DOUBLE_DEPS = $(DLASRC) $(DSLASRC) $(DZLAUX) $(ALLAUX)
+
+double: $(DOUBLE_DEPS)
+	$(AR) $(ARFLAGS) /OUT:$(LAPACKLIB) $**
+	$(RANLIB) $(LAPACKLIB)
+
+COMPLEX16_DEPS = $(ZLASRC) $(ZCLASRC) $(DZLAUX) $(ALLAUX)
+
+complex16: $(COMPLEX16_DEPS)
+	$(AR) $(ARFLAGS) /OUT:$(LAPACKLIB) $**
+	$(RANLIB) $(LAPACKLIB)
+
+!IFDEF FRC
+$(ALLAUX): $(FRC)
+$(SCLAUX): $(FRC)
+$(DZLAUX): $(FRC)
+$(SLASRC): $(FRC)
+$(CLASRC): $(FRC)
+$(DLASRC): $(FRC)
+$(ZLASRC): $(FRC)
+$(ZCLASRC): $(FRC)
+$(DSLASRC): $(FRC)
+
+FRC:
+	@FRC=$(FRC)
+!ENDIF
+
+clean: cleanobj cleanlib
+
+cleanobj:
+	DEL /F /Q *.obj *.mod DEPRECATED\*.obj DEPRECATED\*.mod
+
+cleanlib:
+	DEL /F /Q $(LAPACKLIB)
+
+slaruv.obj: slaruv.f
+	$(FC) $(FFLAGS_NOOPT) /c /Fo$@ $**
+
+dlaruv.obj: dlaruv.f
+	$(FC) $(FFLAGS_NOOPT) /c /Fo$@ $**
+
+sla_wwaddw.obj: sla_wwaddw.f
+	$(FC) $(FFLAGS_NOOPT) /c /Fo$@ $**
+
+dla_wwaddw.obj: dla_wwaddw.f
+	$(FC) $(FFLAGS_NOOPT) /c /Fo$@ $**
+
+cla_wwaddw.obj: cla_wwaddw.f
+	$(FC) $(FFLAGS_NOOPT) /c /Fo$@ $**
+
+zla_wwaddw.obj: zla_wwaddw.f
+	$(FC) $(FFLAGS_NOOPT) /c /Fo$@ $**
+
+# Modules
+la_xisnan.obj: la_xisnan.F90 la_constants.mod
+	$(FC) $(FFLAGS) /c /Fo$@ la_xisnan.F90
+la_constants.obj: la_constants.f90
+	$(FC) $(FFLAGS) /c /Fo$@ la_constants.f90

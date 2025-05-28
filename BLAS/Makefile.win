@@ -1,0 +1,27 @@
+TOPSRCDIR = ..
+!INCLUDE $(TOPSRCDIR)\make.win
+
+all: blas
+
+blas:
+	pushd SRC && $(MAKE) /NOLOGO /F Makefile.win && popd
+
+blas_testing: blas
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win run && popd
+
+clean:
+	pushd SRC && $(MAKE) /NOLOGO /F Makefile.win clean && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win clean && popd
+
+cleanobj:
+	pushd SRC && $(MAKE) /NOLOGO /F Makefile.win cleanobj && popd
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win cleanobj && popd
+
+cleanlib:
+	pushd SRC && $(MAKE) /NOLOGO /F Makefile.win cleanlib && popd
+
+cleanexe:
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win cleanexe && popd
+
+cleantest:
+	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win cleantest && popd

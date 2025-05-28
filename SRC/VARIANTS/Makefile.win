@@ -1,0 +1,77 @@
+#######################################################################
+#  This is the makefile to create a the variants libraries for LAPACK.
+#  The files are organized as follows:
+#       CHOLRL -- Right looking block version of the algorithm, calling Level 3 BLAS
+#       CHOLTOP -- Top looking block version of the algorithm, calling Level 3 BLAS
+#       LUCR -- Crout Level 3 BLAS version of LU factorization
+#       LULL -- left-looking Level 3 BLAS version of LU factorization
+#       QRLL -- left-looking Level 3 BLAS version of QR factorization
+#       LUREC -- an iterative version of Sivan Toledo's recursive LU algorithm[1].
+#       For square matrices, this iterative versions should
+#       be within a factor of two of the optimum number of memory transfers.
+#
+# [1] Toledo, S. 1997. Locality of Reference in LU Decomposition with
+#  Partial Pivoting. SIAM J. Matrix Anal. Appl. 18, 4 (Oct. 1997),
+#  1065-1081. http://dx.doi.org/10.1137/S0895479896297744
+#######################################################################
+
+TOPSRCDIR = ..\..
+!INCLUDE $(TOPSRCDIR)\make.win
+
+.SUFFIXES: .f .obj
+
+.f.obj:
+	$(FC) $(FFLAGS) /c /Fo$@ $<
+
+CHOLRL = cholesky\RL\cpotrf.obj cholesky\RL\dpotrf.obj cholesky\RL\spotrf.obj cholesky\RL\zpotrf.obj
+
+CHOLTOP = cholesky\TOP\cpotrf.obj cholesky\TOP\dpotrf.obj cholesky\TOP\spotrf.obj cholesky\TOP\zpotrf.obj
+
+LUCR = lu\CR\cgetrf.obj lu\CR\dgetrf.obj lu\CR\sgetrf.obj lu\CR\zgetrf.obj
+
+LULL = lu\LL\cgetrf.obj lu\LL\dgetrf.obj lu\LL\sgetrf.obj lu\LL\zgetrf.obj
+
+LUREC = lu\REC\cgetrf.obj lu\REC\dgetrf.obj lu\REC\sgetrf.obj lu\REC\zgetrf.obj
+
+QRLL = qr\LL\cgeqrf.obj qr\LL\dgeqrf.obj qr\LL\sgeqrf.obj qr\LL\zgeqrf.obj
+
+LARFTL2 = larft\LL-LVL2\clarft.obj larft\LL-LVL2\dlarft.obj larft\LL-LVL2\slarft.obj larft\LL-LVL2\zlarft.obj
+
+
+all: cholrl.lib choltop.lib lucr.lib lull.lib lurec.lib qrll.lib larftl2.lib
+
+cholrl.lib: $(CHOLRL)
+	$(AR) $(ARFLAGS) /OUT:$@ $**
+	$(RANLIB) $@
+
+choltop.lib: $(CHOLTOP)
+	$(AR) $(ARFLAGS) /OUT:$@ $**
+	$(RANLIB) $@
+
+lucr.lib: $(LUCR)
+	$(AR) $(ARFLAGS) /OUT:$@ $**
+	$(RANLIB) $@
+
+lull.lib: $(LULL)
+	$(AR) $(ARFLAGS) /OUT:$@ $**
+	$(RANLIB) $@
+
+lurec.lib: $(LUREC)
+	$(AR) $(ARFLAGS) /OUT:$@ $**
+	$(RANLIB) $@
+
+qrll.lib: $(QRLL)
+	$(AR) $(ARFLAGS) /OUT:$@ $**
+	$(RANLIB) $@
+
+larftl2.lib: $(LARFTL2)
+	$(AR) $(ARFLAGS) /OUT:$@ $**
+	$(RANLIB) $@
+
+clean: cleanobj cleanlib
+
+cleanobj:
+	DEL /F /Q $(CHOLRL) $(CHOLTOP) $(LUCR) $(LULL) $(LUREC) $(QRLL) $(LARFTL2)
+
+cleanlib:
+	DEL /F /Q *.lib

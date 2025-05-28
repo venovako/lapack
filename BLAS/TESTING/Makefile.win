@@ -1,0 +1,63 @@
+TOPSRCDIR = ..\..
+!INCLUDE $(TOPSRCDIR)\make.win
+
+all: single double complex complex16
+single:    xblat1s.exe xblat2s.exe xblat3s.exe
+double:    xblat1d.exe xblat2d.exe xblat3d.exe
+complex:   xblat1c.exe xblat2c.exe xblat3c.exe
+complex16: xblat1z.exe xblat2z.exe xblat3z.exe
+
+xblat1s.exe: sblat1.obj $(BLASLIB)
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+xblat1d.exe: dblat1.obj $(BLASLIB)
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+xblat1c.exe: cblat1.obj $(BLASLIB)
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+xblat1z.exe: zblat1.obj $(BLASLIB)
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+
+xblat2s.exe: sblat2.obj $(BLASLIB)
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+xblat2d.exe: dblat2.obj $(BLASLIB)
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+xblat2c.exe: cblat2.obj $(BLASLIB)
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+xblat2z.exe: zblat2.obj $(BLASLIB)
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+
+xblat3s.exe: sblat3.obj $(BLASLIB)
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+xblat3d.exe: dblat3.obj $(BLASLIB)
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+xblat3c.exe: cblat3.obj $(BLASLIB)
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+xblat3z.exe: zblat3.obj $(BLASLIB)
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+
+.f.obj:
+	$(FC) $(FFLAGS) /c /Fo$@ $<
+
+run: all
+	xblat1s.exe > sblat1.out
+	xblat1d.exe > dblat1.out
+	xblat1c.exe > cblat1.out
+	xblat1z.exe > zblat1.out
+	xblat2s.exe < sblat2.in
+	xblat2d.exe < dblat2.in
+	xblat2c.exe < cblat2.in
+	xblat2z.exe < zblat2.in
+	xblat3s.exe < sblat3.in
+	xblat3d.exe < dblat3.in
+	xblat3c.exe < cblat3.in
+	xblat3z.exe < zblat3.in
+
+clean: cleanobj cleanexe cleantest
+
+cleanobj:
+	DEL /F /Q *.obj
+
+cleanexe:
+	DEL /F /Q xblat*.exe
+
+cleantest:
+	DEL /F /Q *.out core

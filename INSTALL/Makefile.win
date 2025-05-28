@@ -1,0 +1,78 @@
+TOPSRCDIR = ..
+!INCLUDE $(TOPSRCDIR)\make.win
+
+all: testlsame.exe testslamch.exe testdlamch.exe testsecond.exe testdsecnd.exe testieee.exe testversion.exe test_zcomplexabs.exe test_zcomplexdiv.exe test_zcomplexmult.exe test_zminMax.exe
+
+testlsame.exe: lsame.obj lsametst.obj
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+
+testslamch.exe: slamch.obj lsame.obj slamchtst.obj
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+
+testdlamch.exe: dlamch.obj lsame.obj dlamchtst.obj
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+
+testsecond.exe: second_$(TIMER).obj secondtst.obj
+	@echo "[INFO] : TIMER value: $(TIMER) (given by make.win)"
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+
+testdsecnd.exe: dsecnd_$(TIMER).obj dsecndtst.obj
+	@echo "[INFO] : TIMER value: $(TIMER) (given by make.win)"
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+
+testieee.exe: tstiee.obj $(TOPSRCDIR)\SRC\ieeeck.obj $(TOPSRCDIR)\SRC\ilaenv.obj $(TOPSRCDIR)\SRC\iparmq.obj
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+
+testversion.exe: ilaver.obj LAPACK_version.obj
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+
+test_zcomplexabs.exe: test_zcomplexabs.obj
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+
+test_zcomplexdiv.exe: test_zcomplexdiv.obj
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+
+test_zcomplexmult.exe: test_zcomplexmult.obj
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+
+test_zminMax.exe: test_zminMax.obj
+	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
+
+.f.obj:
+	$(FC) $(FFLAGS) /c /Fo$@ $<
+
+run: all
+	testlsame.exe
+	testslamch.exe
+	testdlamch.exe
+	testsecond.exe
+	testdsecnd.exe
+	testieee.exe
+	testversion.exe
+	test_zcomplexabs.exe 2> test_zcomplexabs.err
+	test_zcomplexdiv.exe 2> test_zcomplexdiv.err
+	test_zcomplexmult.exe 2> test_zcomplexmult.err
+	test_zminMax.exe 2> test_zminMax.err
+
+clean: cleanobj cleanexe cleantest
+
+cleanobj:
+	DEL /F /Q *.obj
+
+cleanexe:
+	DEL /F /Q testlsame.exe testslamch.exe testdlamch.exe testsecond.exe testdsecnd.exe testieee.exe testversion.exe test_zcomplexabs.exe test_zcomplexdiv.exe test_zcomplexmult.exe test_zminMax.exe
+
+cleantest:
+	DEL /F /Q core
+
+slamch.obj: slamch.f
+	$(FC) $(FFLAGS_NOOPT) /c /Fo$@ $**
+
+dlamch.obj: dlamch.f
+	$(FC) $(FFLAGS_NOOPT) /c /Fo$@ $**
+
+sroundup_lwork.obj: sroundup_lwork.f
+	$(FC) $(FFLAGS_NOOPT) /c /Fo$@ $**
+
+droundup_lwork.obj: droundup_lwork.f
+	$(FC) $(FFLAGS_NOOPT) /c /Fo$@ $**
