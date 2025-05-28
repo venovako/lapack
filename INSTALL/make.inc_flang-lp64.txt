@@ -17,7 +17,7 @@ CFLAGS = -O0 -g -fPIC -fno-omit-frame-pointer -ffp-contract=fast -march=native
 #  and handle these quantities appropriately. As a consequence, one
 #  should not compile LAPACK with flags such as -ffpe-trap=overflow.
 #
-FC = flang-new
+FC = flang
 FFLAGS = -cpp -O0 -g -fPIC -fimplicit-none -fno-omit-frame-pointer -ffp-contract=fast -fhonor-infinities -fhonor-nans -march=native
 FFLAGS_DRV = $(FFLAGS)
 FFLAGS_NOOPT = $(FFLAGS)
