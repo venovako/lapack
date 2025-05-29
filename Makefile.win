@@ -30,7 +30,7 @@ blas_testing: blaslib
 lapack_testing: tmglib lapacklib blaslib
 	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win cleanexe && popd
 	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win && popd
-	lapack_testing.py
+	python3.exe lapack_testing.py
 
 variants_testing: tmglib variants lapacklib blaslib
 	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win cleanexe && popd
