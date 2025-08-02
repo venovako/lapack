@@ -54,3 +54,9 @@ SRC/la_xisnan.mod
 
 # Generated files
 LAPACKE/include/lapacke_mangling.h
+
+# Binaries
+*.exe
+*.lib
+*.obj
+*.pdb
