@@ -70,19 +70,19 @@ all: $(BLASLIB)
 #  Comment out the next 6 definitions if you already have
 #  the Level 1 BLAS.
 #---------------------------------------------------------
-SBLAS1 = isamax.obj sasum.obj saxpy.obj scopy.obj sdot.obj snrm2.obj \
+SBLAS1 = isamax.obj sasum.obj saxpy.obj saxpby.obj scopy.obj sdot.obj snrm2.obj \
 	srot.obj srotg.obj sscal.obj sswap.obj sdsdot.obj srotmg.obj srotm.obj
 $(SBLAS1): $(FRC)
 
-CBLAS1 = scabs1.obj scasum.obj scnrm2.obj icamax.obj caxpy.obj ccopy.obj \
+CBLAS1 = scabs1.obj scasum.obj scnrm2.obj icamax.obj caxpy.obj caxpby.obj ccopy.obj \
 	cdotc.obj cdotu.obj csscal.obj crotg.obj cscal.obj cswap.obj csrot.obj
 $(CBLAS1): $(FRC)
 
-DBLAS1 = idamax.obj dasum.obj daxpy.obj dcopy.obj ddot.obj dnrm2.obj \
+DBLAS1 = idamax.obj dasum.obj daxpy.obj daxpby.obj dcopy.obj ddot.obj dnrm2.obj \
 	drot.obj drotg.obj dscal.obj dsdot.obj dswap.obj drotmg.obj drotm.obj
 $(DBLAS1): $(FRC)
 
-ZBLAS1 = dcabs1.obj dzasum.obj dznrm2.obj izamax.obj zaxpy.obj zcopy.obj \
+ZBLAS1 = dcabs1.obj dzasum.obj dznrm2.obj izamax.obj zaxpy.obj zaxpby.obj zcopy.obj \
 	zdotc.obj zdotu.obj zdscal.obj zrotg.obj zscal.obj zswap.obj zdrot.obj
 $(ZBLAS1): $(FRC)
 
