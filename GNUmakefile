@@ -15,9 +15,9 @@ lib: blaslib variants lapacklib tmglib cblaslib lapackelib
 .PHONY: blaslib
 blaslib:
 	$(MAKE) -C BLAS
-ifeq ($(OS),Linux)
-	-ld -shared -o $(subst .a,.so,$(BLASLIB)) BLAS/SRC/*.o BLAS/SRC/DEPRECATED/*.o
-endif # !Linux
+# ifeq ($(OS),Linux)
+# 	-ld -shared -o $(subst .a,.so,$(BLASLIB)) BLAS/SRC/*.o BLAS/SRC/DEPRECATED/*.o
+# endif # !Linux
 
 .PHONY: cblaslib
 cblaslib:
@@ -26,9 +26,9 @@ cblaslib:
 .PHONY: lapacklib
 lapacklib:
 	$(MAKE) -C SRC
-ifeq ($(OS),Linux)
-	-ld -shared -o $(subst .a,.so,$(LAPACKLIB)) SRC/*.o SRC/DEPRECATED/*.o INSTALL/ilaver.o INSTALL/lsame.o INSTALL/slamch.o INSTALL/sroundup_lwork.o INSTALL/second_$(TIMER).o INSTALL/droundup_lwork.o INSTALL/dlamch.o INSTALL/dsecnd_$(TIMER).o
-endif # !Linux
+# ifeq ($(OS),Linux)
+# 	-ld -shared -o $(subst .a,.so,$(LAPACKLIB)) SRC/*.o SRC/DEPRECATED/*.o INSTALL/ilaver.o INSTALL/lsame.o INSTALL/slamch.o INSTALL/sroundup_lwork.o INSTALL/second_$(TIMER).o INSTALL/droundup_lwork.o INSTALL/dlamch.o INSTALL/dsecnd_$(TIMER).o
+# endif # !Linux
 
 .PHONY: lapackelib
 lapackelib:
@@ -51,9 +51,9 @@ lapackpplib:
 .PHONY: tmglib
 tmglib:
 	$(MAKE) -C TESTING/MATGEN
-ifeq ($(OS),Linux)
-	-ld -shared -o $(subst .a,.so,$(TMGLIB)) TESTING/MATGEN/*.o
-endif # !Linux
+# ifeq ($(OS),Linux)
+# 	-ld -shared -o $(subst .a,.so,$(TMGLIB)) TESTING/MATGEN/*.o
+# endif # !Linux
 
 .PHONY: variants
 variants:

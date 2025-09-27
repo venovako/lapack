@@ -24,7 +24,7 @@ FFLAGS_NOOPT = -O0 -fpp -xHost -fPIC -fexceptions -fasynchronous-unwind-tables -
 
 #  Define LDFLAGS to the desired linker options for your machine.
 #
-LDFLAGS = -rdynamic -static-libgcc
+LDFLAGS = -rdynamic
 
 #  The archiver and the flag(s) to use when building an archive
 #  (library).  If your system has no ranlib, set RANLIB = echo.

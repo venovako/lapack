@@ -33,7 +33,7 @@ FFLAGS_NOOPT = $(FFLAGS)
 
 #  Define LDFLAGS to the desired linker options for your machine.
 #
-LDFLAGS = -rdynamic -static-libgcc -static-libgfortran -static-libquadmath
+LDFLAGS = -rdynamic
 
 #  The archiver and the flag(s) to use when building an archive
 #  (library).  If your system has no ranlib, set RANLIB = echo.
