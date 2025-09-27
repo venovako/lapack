@@ -4,6 +4,7 @@
 
 TOPSRCDIR = .
 include $(TOPSRCDIR)/make.inc
+OS=$(shell uname)
 
 .PHONY: all
 all: lapack_install lib blas_testing lapack_testing cblas_testing #variants_testing
@@ -14,6 +15,9 @@ lib: blaslib variants lapacklib tmglib cblaslib lapackelib
 .PHONY: blaslib
 blaslib:
 	$(MAKE) -C BLAS
+ifeq ($(OS),Linux)
+	-ld -shared -o $(subst .a,.so,$(BLASLIB)) BLAS/SRC/*.o BLAS/SRC/DEPRECATED/*.o
+endif # !Linux
 
 .PHONY: cblaslib
 cblaslib:
@@ -22,6 +26,9 @@ cblaslib:
 .PHONY: lapacklib
 lapacklib:
 	$(MAKE) -C SRC
+ifeq ($(OS),Linux)
+	-ld -shared -o $(subst .a,.so,$(LAPACKLIB)) SRC/*.o SRC/DEPRECATED/*.o INSTALL/*.o
+endif # !Linux
 
 .PHONY: lapackelib
 lapackelib:
@@ -44,6 +51,9 @@ lapackpplib:
 .PHONY: tmglib
 tmglib:
 	$(MAKE) -C TESTING/MATGEN
+ifeq ($(OS),Linux)
+	-ld -shared -o $(subst .a,.so,$(TMGLIB)) TESTING/MATGEN/*.o
+endif # !Linux
 
 .PHONY: variants
 variants:
@@ -176,6 +186,7 @@ cleanlib:
 	$(MAKE) -C TESTING/MATGEN cleanlib
 	$(MAKE) -C LAPACKE cleanlib
 	rm -f *.a
+	-rm -f *.so
 cleanexe:
 	$(MAKE) -C INSTALL cleanexe
 	$(MAKE) -C BLAS cleanexe
