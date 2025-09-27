@@ -27,7 +27,7 @@ cblaslib:
 lapacklib:
 	$(MAKE) -C SRC
 ifeq ($(OS),Linux)
-	-ld -shared -o $(subst .a,.so,$(LAPACKLIB)) SRC/*.o SRC/DEPRECATED/*.o INSTALL/*.o
+	-ld -shared -o $(subst .a,.so,$(LAPACKLIB)) SRC/*.o SRC/DEPRECATED/*.o INSTALL/ilaver.o INSTALL/lsame.o INSTALL/slamch.o INSTALL/sroundup_lwork.o INSTALL/second_$(TIMER).o INSTALL/droundup_lwork.o INSTALL/dlamch.o INSTALL/dsecnd_$(TIMER).o
 endif # !Linux
 
 .PHONY: lapackelib
