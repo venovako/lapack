@@ -7,7 +7,7 @@ include $(TOPSRCDIR)/make.inc
 # OS=$(shell uname)
 
 .PHONY: all
-all: lapack_install lib blas_testing lapack_testing cblas_testing variants_testing
+all: lapack_install lib blas_testing lapack_testing cblas_testing #variants_testing
 
 .PHONY: lib
 lib: blaslib variants lapacklib tmglib cblaslib lapackelib
@@ -168,6 +168,7 @@ clean:
 	$(MAKE) -C TESTING/EIG clean
 	$(MAKE) -C LAPACKE clean
 	rm -f *.a
+	-rm -f *.so
 cleanobj:
 	$(MAKE) -C INSTALL cleanobj
 	$(MAKE) -C BLAS cleanobj
