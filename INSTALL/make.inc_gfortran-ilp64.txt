@@ -7,7 +7,7 @@ MARCH = $(shell uname -m)
 
 #  CC is the C compiler, normally invoked with options CFLAGS.
 #
-CC = gcc
+CC = gcc$(GNU)
 ifdef NDEBUG
 CFLAGS = -DNDEBUG=$(NDEBUG) -O$(NDEBUG)
 else # !NDEBUG
@@ -28,7 +28,7 @@ endif # ?ppc64le
 #  and handle these quantities appropriately. As a consequence, one
 #  should not compile LAPACK with flags such as -ffpe-trap=overflow.
 #
-FC = gfortran
+FC = gfortran$(GNU)
 FFLAGS = -cpp
 ifdef NDEBUG
 FFLAGS += -DNDEBUG=$(NDEBUG) -O$(NDEBUG)
