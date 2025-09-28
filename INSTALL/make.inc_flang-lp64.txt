@@ -7,7 +7,12 @@ SHELL = /bin/sh
 #  CC is the C compiler, normally invoked with options CFLAGS.
 #
 CC = clang
-CFLAGS = -O0 -g -fPIC -fno-omit-frame-pointer -ffp-contract=fast -march=native
+ifdef NDEBUG
+CFLAGS = -DNDEBUG=$(NDEBUG) -O$(NDEBUG)
+else # !NDEBUG
+CFLAGS = -O0 -g
+endif # ?NDEBUG
+CFLAGS += -fPIC -fno-omit-frame-pointer -ffp-contract=fast -march=native
 
 #  Modify the FC and FFLAGS definitions to the desired compiler
 #  and desired compiler options for your machine.  NOOPT refers to
@@ -18,7 +23,13 @@ CFLAGS = -O0 -g -fPIC -fno-omit-frame-pointer -ffp-contract=fast -march=native
 #  should not compile LAPACK with flags such as -ffpe-trap=overflow.
 #
 FC = flang
-FFLAGS = -cpp -O0 -g -fPIC -fimplicit-none -fno-omit-frame-pointer -ffp-contract=fast -fhonor-infinities -fhonor-nans -march=native
+FFLAGS = -cpp
+ifdef NDEBUG
+FFLAGS += -DNDEBUG=$(NDEBUG) -O$(NDEBUG)
+else # !NDEBUG
+FFLAGS += -O0 -g
+endif # ?NDEBUG
+FFLAGS += -fPIC -fimplicit-none -fno-omit-frame-pointer -ffp-contract=fast -fhonor-infinities -fhonor-nans -march=native
 FFLAGS_DRV = $(FFLAGS)
 FFLAGS_NOOPT = $(FFLAGS)
 

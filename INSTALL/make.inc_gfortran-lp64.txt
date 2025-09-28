@@ -8,11 +8,17 @@ MARCH = $(shell uname -m)
 #  CC is the C compiler, normally invoked with options CFLAGS.
 #
 CC = gcc
+ifdef NDEBUG
+CFLAGS = -DNDEBUG=$(NDEBUG) -O$(NDEBUG)
+else # !NDEBUG
+CFLAGS = -Og -ggdb3
+endif # ?NDEBUG
+CFLAGS += -fPIC -fexceptions -fasynchronous-unwind-tables -ffp-contract=fast -fno-omit-frame-pointer -fopenmp-simd -pthread
 ifeq ($(MARCH),ppc64le)
-CFLAGS = -Og -ggdb3 -fPIC -fexceptions -fasynchronous-unwind-tables -ffp-contract=fast -fno-omit-frame-pointer -fopenmp-simd -pthread -mcpu=native -mpower8-fusion -mtraceback=full
-else
-CFLAGS = -Og -ggdb3 -fPIC -fexceptions -fasynchronous-unwind-tables -ffp-contract=fast -fno-omit-frame-pointer -fopenmp-simd -pthread -march=native
-endif
+CFLAGS += -mcpu=native -mpower8-fusion -mtraceback=full
+else # !ppc64le
+CFLAGS += -march=native
+endif # ?ppc64le
 
 #  Modify the FC and FFLAGS definitions to the desired compiler
 #  and desired compiler options for your machine.  NOOPT refers to
@@ -23,11 +29,18 @@ endif
 #  should not compile LAPACK with flags such as -ffpe-trap=overflow.
 #
 FC = gfortran
+FFLAGS = -cpp
+ifdef NDEBUG
+FFLAGS += -DNDEBUG=$(NDEBUG) -O$(NDEBUG)
+else # !NDEBUG
+FFLAGS += -Og -ggdb3 -finit-local-zero -finit-derived
+endif # ?NDEBUG
+FFLAGS += -fPIC -fexceptions -fasynchronous-unwind-tables -ffp-contract=fast -fno-omit-frame-pointer -fopenmp-simd -pthread -fprotect-parens -frecursive -fstack-arrays
 ifeq ($(MARCH),ppc64le)
-FFLAGS = -cpp -Og -ggdb3 -fPIC -fexceptions -fasynchronous-unwind-tables -ffp-contract=fast -fno-omit-frame-pointer -fopenmp-simd -pthread -mcpu=native -mpower8-fusion -mtraceback=full -fprotect-parens -frecursive -fstack-arrays -finit-local-zero -finit-derived
-else
-FFLAGS = -cpp -Og -ggdb3 -fPIC -fexceptions -fasynchronous-unwind-tables -ffp-contract=fast -fno-omit-frame-pointer -fopenmp-simd -pthread -march=native -fprotect-parens -frecursive -fstack-arrays -finit-local-zero -finit-derived
-endif
+FFLAGS += -mcpu=native -mpower8-fusion -mtraceback=full
+else # !ppc64le
+FFLAGS += -march=native
+endif # ?ppc64le
 FFLAGS_DRV = $(FFLAGS)
 FFLAGS_NOOPT = $(FFLAGS)
 

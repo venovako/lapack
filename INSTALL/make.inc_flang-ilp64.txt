@@ -7,7 +7,12 @@ SHELL = /bin/sh
 #  CC is the C compiler, normally invoked with options CFLAGS.
 #
 CC = clang
-CFLAGS = -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -O0 -g -fPIC -fno-omit-frame-pointer -ffp-contract=fast -march=native
+ifdef NDEBUG
+CFLAGS = -DNDEBUG=$(NDEBUG) -O$(DNDEBUG)
+else # !NDEBUG
+CFLAGS = -O0 -g
+endif # ?NDEBUG
+CFLAGS += -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -fPIC -fno-omit-frame-pointer -ffp-contract=fast -march=native
 
 #  Modify the FC and FFLAGS definitions to the desired compiler
 #  and desired compiler options for your machine.  NOOPT refers to
@@ -18,7 +23,13 @@ CFLAGS = -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -O0 -g -fPIC -fno-omit-f
 #  should not compile LAPACK with flags such as -ffpe-trap=overflow.
 #
 FC = flang
-FFLAGS = -cpp -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -fdefault-integer-8 -O0 -g -fPIC -fimplicit-none -fno-omit-frame-pointer -ffp-contract=fast -fhonor-infinities -fhonor-nans -march=native
+FFLAGS = -cpp
+ifdef NDEBUG
+FFLAGS += -DNDEBUG=$(NDEBUG) -O$(NDEBUG)
+else # !NDEBUG
+FFLAGS += -O0 -g
+endif # ?NDEBUG
+FFLAGS += -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -fdefault-integer-8 -fPIC -fimplicit-none -fno-omit-frame-pointer -ffp-contract=fast -fhonor-infinities -fhonor-nans -march=native
 FFLAGS_DRV = $(FFLAGS)
 FFLAGS_NOOPT = $(FFLAGS)
 

@@ -7,7 +7,12 @@ SHELL = /bin/sh
 #  CC is the C compiler, normally invoked with options CFLAGS.
 #
 CC = nvc
-CFLAGS = -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -O0 -g -c18 -fpic -Kieee -Meh_frame -Mfma -Mframe -Minfo -Mint128 -Mm128 -Mnodaz -Mnoflushz -Mnofpapprox -Mnofprelaxed -Mno-recip-div -nvmalloc -pthread -tp=native -traceback
+ifdef NDEBUG
+CFLAGS = -DNDEBUG=$(NDEBUG) -O$(NDEBUG)
+else # !NDEBUG
+CFLAGS = -O0 -g
+endif # ?NDEBUG
+CFLAGS += -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -c18 -fpic -Kieee -Meh_frame -Mfma -Mframe -Minfo -Mint128 -Mm128 -Mnodaz -Mnoflushz -Mnofpapprox -Mnofprelaxed -Mno-recip-div -nvmalloc -pthread -tp=native -traceback
 
 #  Modify the FC and FFLAGS definitions to the desired compiler
 #  and desired compiler options for your machine.  NOOPT refers to
@@ -18,7 +23,13 @@ CFLAGS = -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -O0 -g -c18 -fpic -Kieee
 #  should not compile LAPACK with flags such as -ffpe-trap=overflow.
 #
 FC = nvfortran
-FFLAGS = -Mpreprocess -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -i8 -O0 -g -KPIC -Mdclchk -Mframe -Meh_frame -Minfo -Mlarge_arrays -Mrecursive -Mstack_arrays -tp=native -Kieee -Mfma -Mnodaz -Mnoflushz -Mnofpapprox -Mnofprelaxed -Mno-recip-div -nvmalloc -traceback
+FFLAGS = -Mpreprocess
+ifdef NDEBUG
+FFLAGS += -DNDEBUG=$(NDEBUG) -O$(NDEBUG)
+else # !NDEBUG
+FFLAGS += -O0 -g
+endif # ?NDEBUG
+FFLAGS += -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -i8 -KPIC -Mdclchk -Mframe -Meh_frame -Minfo -Mlarge_arrays -Mrecursive -Mstack_arrays -tp=native -Kieee -Mfma -Mnodaz -Mnoflushz -Mnofpapprox -Mnofprelaxed -Mno-recip-div -nvmalloc -traceback
 FFLAGS_DRV = $(FFLAGS)
 FFLAGS_NOOPT = $(FFLAGS)
 

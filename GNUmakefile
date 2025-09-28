@@ -4,10 +4,10 @@
 
 TOPSRCDIR = .
 include $(TOPSRCDIR)/make.inc
-OS=$(shell uname)
+# OS=$(shell uname)
 
 .PHONY: all
-all: lapack_install lib blas_testing lapack_testing cblas_testing #variants_testing
+all: lapack_install lib blas_testing lapack_testing cblas_testing variants_testing
 
 .PHONY: lib
 lib: blaslib variants lapacklib tmglib cblaslib lapackelib
