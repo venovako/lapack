@@ -13,7 +13,10 @@ CFLAGS = -DNDEBUG=$(NDEBUG) -O$(NDEBUG)
 else # !NDEBUG
 CFLAGS = -Og -ggdb3
 endif # ?NDEBUG
-CFLAGS += -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -fPIC -fexceptions -fasynchronous-unwind-tables -ffp-contract=fast -fno-omit-frame-pointer -fopenmp-simd -pthread
+CFLAGS += -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -fPIC -ffp-contract=fast -fvect-cost-model=unlimited -fopenmp-simd -pthread
+ifndef NDEBUG
+CFLAGS += -fexceptions -fasynchronous-unwind-tables -fno-omit-frame-pointer
+endif # !NDEBUG
 ifeq ($(MARCH),ppc64le)
 CFLAGS = -mcpu=native -mpower8-fusion -mtraceback=full
 else # !ppc64le
@@ -35,7 +38,10 @@ FFLAGS += -DNDEBUG=$(NDEBUG) -O$(NDEBUG)
 else # !NDEBUG
 FFLAGS += -Og -ggdb3 -finit-local-zero -finit-derived
 endif # ?NDEBUG
-FFLAGS += -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -fdefault-integer-8 -fPIC -fexceptions -fasynchronous-unwind-tables -ffp-contract=fast -fno-omit-frame-pointer -fopenmp-simd -pthread -fprotect-parens -frecursive -fstack-arrays
+FFLAGS += -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -fdefault-integer-8 -fPIC -ffp-contract=fast -fvect-cost-model=unlimited -fopenmp-simd -pthread -fprotect-parens -frecursive -fstack-arrays
+ifndef NDEBUG
+FFLAGS += -fexceptions -fasynchronous-unwind-tables -fno-omit-frame-pointer
+endif # !NDEBUG
 ifeq ($(MARCH),ppc64le)
 FFLAGS += -mcpu=native -mpower8-fusion -mtraceback=full
 else # !ppc64le
