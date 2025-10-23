@@ -35,10 +35,7 @@ LUREC = lu\REC\cgetrf.obj lu\REC\dgetrf.obj lu\REC\sgetrf.obj lu\REC\zgetrf.obj
 
 QRLL = qr\LL\cgeqrf.obj qr\LL\dgeqrf.obj qr\LL\sgeqrf.obj qr\LL\zgeqrf.obj
 
-LARFTL2 = larft\LL-LVL2\clarft.obj larft\LL-LVL2\dlarft.obj larft\LL-LVL2\slarft.obj larft\LL-LVL2\zlarft.obj
-
-
-all: cholrl.lib choltop.lib lucr.lib lull.lib lurec.lib qrll.lib larftl2.lib
+all: cholrl.lib choltop.lib lucr.lib lull.lib lurec.lib qrll.lib
 
 cholrl.lib: $(CHOLRL)
 	$(AR) $(ARFLAGS) /OUT:$@ $**
@@ -64,14 +61,10 @@ qrll.lib: $(QRLL)
 	$(AR) $(ARFLAGS) /OUT:$@ $**
 	$(RANLIB) $@
 
-larftl2.lib: $(LARFTL2)
-	$(AR) $(ARFLAGS) /OUT:$@ $**
-	$(RANLIB) $@
-
 clean: cleanobj cleanlib
 
 cleanobj:
-	DEL /F /Q $(CHOLRL) $(CHOLTOP) $(LUCR) $(LULL) $(LUREC) $(QRLL) $(LARFTL2)
+	DEL /F /Q $(CHOLRL) $(CHOLTOP) $(LUCR) $(LULL) $(LUREC) $(QRLL)
 
 cleanlib:
 	DEL /F /Q *.lib
