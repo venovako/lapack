@@ -106,7 +106,8 @@ $(ALLBLAS): $(FRC)
 #---------------------------------------------------------
 SBLAS2 = sgemv.obj sgbmv.obj ssymv.obj ssbmv.obj sspmv.obj \
 	strmv.obj stbmv.obj stpmv.obj strsv.obj stbsv.obj stpsv.obj \
-	sger.obj ssyr.obj sspr.obj ssyr2.obj sspr2.obj
+	sger.obj ssyr.obj sspr.obj ssyr2.obj sspr2.obj \
+        sskewsymv.obj sskewsyr2.obj
 $(SBLAS2): $(FRC)
 
 CBLAS2 = cgemv.obj cgbmv.obj chemv.obj chbmv.obj chpmv.obj \
@@ -116,7 +117,8 @@ $(CBLAS2): $(FRC)
 
 DBLAS2 = dgemv.obj dgbmv.obj dsymv.obj dsbmv.obj dspmv.obj \
 	dtrmv.obj dtbmv.obj dtpmv.obj dtrsv.obj dtbsv.obj dtpsv.obj \
-	dger.obj dsyr.obj dspr.obj dsyr2.obj dspr2.obj
+	dger.obj dsyr.obj dspr.obj dsyr2.obj dspr2.obj \
+        dskewsymv.obj dskewsyr2.obj
 $(DBLAS2): $(FRC)
 
 ZBLAS2 = zgemv.obj zgbmv.obj zhemv.obj zhbmv.obj zhpmv.obj \
@@ -128,14 +130,16 @@ $(ZBLAS2): $(FRC)
 #  Comment out the next 4 definitions if you already have
 #  the Level 3 BLAS.
 #---------------------------------------------------------
-SBLAS3 = sgemm.obj ssymm.obj ssyrk.obj ssyr2k.obj strmm.obj strsm.obj sgemmtr.obj
+SBLAS3 = sgemm.obj ssymm.obj ssyrk.obj ssyr2k.obj strmm.obj strsm.obj sgemmtr.obj \
+	sskewsymm.obj sskewsyr2k.obj
 $(SBLAS3): $(FRC)
 
 CBLAS3 = cgemm.obj csymm.obj csyrk.obj csyr2k.obj ctrmm.obj ctrsm.obj \
 	chemm.obj cherk.obj cher2k.obj cgemmtr.obj
 $(CBLAS3): $(FRC)
 
-DBLAS3 = dgemm.obj dsymm.obj dsyrk.obj dsyr2k.obj dtrmm.obj dtrsm.obj dgemmtr.obj
+DBLAS3 = dgemm.obj dsymm.obj dsyrk.obj dsyr2k.obj dtrmm.obj dtrsm.obj dgemmtr.obj \
+	dskewsymm.obj dskewsyr2k.obj
 $(DBLAS3): $(FRC)
 
 ZBLAS3 = zgemm.obj zsymm.obj zsyrk.obj zsyr2k.obj ztrmm.obj ztrsm.obj \
