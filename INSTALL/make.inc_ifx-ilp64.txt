@@ -12,7 +12,7 @@ CFLAGS = -DNDEBUG=$(NDEBUG) -O$(NDEBUG)
 else # !NDEBUG
 CFLAGS = -O0
 endif # ?NDEBUG
-CFLAGS += -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -std=c18 -xHost -fPIC -fexceptions -fasynchronous-unwind-tables -fno-omit-frame-pointer -fp-model=precise -fp-speculation=safe -fprotect-parens -fma -no-ftz -fimf-precision=high -qopenmp-simd -traceback
+CFLAGS += -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -std=gnu2x -xHost -fPIC -fexceptions -fasynchronous-unwind-tables -fno-omit-frame-pointer -fp-model=precise -fp-speculation=safe -fprotect-parens -fma -no-ftz -fimf-precision=high -qopenmp-simd -traceback
 
 #  Modify the FC and FFLAGS definitions to the desired compiler
 #  and desired compiler options for your machine.  NOOPT refers to

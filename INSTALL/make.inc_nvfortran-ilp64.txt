@@ -12,7 +12,7 @@ CFLAGS = -DNDEBUG=$(NDEBUG) -O$(NDEBUG)
 else # !NDEBUG
 CFLAGS = -O0 -g
 endif # ?NDEBUG
-CFLAGS += -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -c18 -fpic -Kieee -Meh_frame -Mfma -Mframe -Minfo -Mint128 -Mm128 -Mnodaz -Mnoflushz -Mnofpapprox -Mnofprelaxed -Mno-recip-div -nvmalloc -pthread -tp=native -traceback
+CFLAGS += -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -c23 -fpic -Kieee -Meh_frame -Mfma -Mframe -Minfo -Mint128 -Mm128 -Mnodaz -Mnoflushz -Mnofpapprox -Mnofprelaxed -Mno-recip-div -nvmalloc -pthread -tp=native -traceback
 
 #  Modify the FC and FFLAGS definitions to the desired compiler
 #  and desired compiler options for your machine.  NOOPT refers to

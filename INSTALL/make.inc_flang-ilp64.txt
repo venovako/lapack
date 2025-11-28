@@ -12,7 +12,7 @@ CFLAGS = -DNDEBUG=$(NDEBUG) -O$(DNDEBUG)
 else # !NDEBUG
 CFLAGS = -O0 -g
 endif # ?NDEBUG
-CFLAGS += -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -fPIC -fno-omit-frame-pointer -ffp-contract=fast -march=native
+CFLAGS += -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -std=gnu2y -fPIC -fno-omit-frame-pointer -ffp-contract=fast -march=native -pthread
 
 #  Modify the FC and FFLAGS definitions to the desired compiler
 #  and desired compiler options for your machine.  NOOPT refers to
@@ -25,11 +25,11 @@ CFLAGS += -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -fPIC -fno-omit-frame-p
 FC = flang
 FFLAGS = -cpp
 ifdef NDEBUG
-FFLAGS += -DNDEBUG=$(NDEBUG) -O$(NDEBUG)
+FFLAGS += -DNDEBUG=$(NDEBUG) -O$(NDEBUG) -fvectorize -fslp-vectorize
 else # !NDEBUG
 FFLAGS += -O0 -g
 endif # ?NDEBUG
-FFLAGS += -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -fdefault-integer-8 -fPIC -fimplicit-none -fno-omit-frame-pointer -ffp-contract=fast -fhonor-infinities -fhonor-nans -march=native
+FFLAGS += -DUSE_IEEE_INTRINSIC -DWeirdNEC -DLAPACK_ILP64 -fdefault-integer-8 -fPIC -fimplicit-none -fno-omit-frame-pointer -ffp-contract=fast -fhonor-infinities -fhonor-nans -march=native -fstack-arrays -pthread
 FFLAGS_DRV = $(FFLAGS)
 FFLAGS_NOOPT = $(FFLAGS)
 

@@ -12,7 +12,7 @@ CFLAGS = -DNDEBUG=$(NDEBUG) -O$(NDEBUG)
 else # !NDEBUG
 CFLAGS = -O0 -g
 endif # ?NDEBUG
-CFLAGS += -fPIC -fno-omit-frame-pointer -ffp-contract=fast -march=native
+CFLAGS += -std=gnu2y -fPIC -fno-omit-frame-pointer -ffp-contract=fast -march=native -pthread
 
 #  Modify the FC and FFLAGS definitions to the desired compiler
 #  and desired compiler options for your machine.  NOOPT refers to
@@ -25,11 +25,11 @@ CFLAGS += -fPIC -fno-omit-frame-pointer -ffp-contract=fast -march=native
 FC = flang
 FFLAGS = -cpp
 ifdef NDEBUG
-FFLAGS += -DNDEBUG=$(NDEBUG) -O$(NDEBUG)
+FFLAGS += -DNDEBUG=$(NDEBUG) -O$(NDEBUG) -fvectorize -fslp-vectorize
 else # !NDEBUG
 FFLAGS += -O0 -g
 endif # ?NDEBUG
-FFLAGS += -fPIC -fimplicit-none -fno-omit-frame-pointer -ffp-contract=fast -fhonor-infinities -fhonor-nans -march=native
+FFLAGS += -fPIC -fimplicit-none -fno-omit-frame-pointer -ffp-contract=fast -fhonor-infinities -fhonor-nans -march=native -fstack-arrays -pthread
 FFLAGS_DRV = $(FFLAGS)
 FFLAGS_NOOPT = $(FFLAGS)
 
