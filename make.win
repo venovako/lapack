@@ -11,7 +11,7 @@
 #  should not compile LAPACK with flags such as -ffpe-trap=overflow.
 #
 FC = ifx.exe
-FFLAGS = /nologo /fpp /Qexceptions /Od /QxHost /fp:precise /Qfma /Qftz- /Qprec-div /Qprotect-parens /recursive /standard-semantics /traceback /MT
+FFLAGS = /nologo /fpp /Qexceptions /Od /QxHost /fp:precise /Qfma /Qftz- /Qprec-div /Qprotect-parens /Qzero /recursive /standard-semantics /traceback /MT
 FFLAGS_DRV = $(FFLAGS)
 FFLAGS_NOOPT = $(FFLAGS)
 
