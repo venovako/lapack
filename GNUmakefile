@@ -155,6 +155,10 @@ man:
 	@echo "Usage: man dgetrf"
 	@echo "=================="
 
+.PHONY: strip
+strip:
+	find . -name '*.a' -type f -exec strip --strip-unneeded --verbose {} \;
+
 .PHONY: clean cleanobj cleanlib cleanexe cleantest
 clean:
 	$(MAKE) -C INSTALL clean
