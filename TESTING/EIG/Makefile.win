@@ -138,16 +138,16 @@ complex: xeigtstc.exe xdmdeigtstc.exe
 double: xeigtstd.exe xdmdeigtstd.exe
 complex16: xeigtstz.exe xdmdeigtstz.exe
 
-xdmdeigtsts.exe: $(SDMDEIGTST) $(TMGLIB) $(LAPACKLIB) $(BLASLIB)
+xdmdeigtsts.exe: $(SDMDEIGTST) $(AEIGTST) $(TMGLIB) $(LAPACKLIB) $(BLASLIB)
 	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
 
-xdmdeigtstc.exe: $(CDMDEIGTST) $(TMGLIB) $(LAPACKLIB) $(BLASLIB)
+xdmdeigtstc.exe: $(CDMDEIGTST) $(AEIGTST) $(TMGLIB) $(LAPACKLIB) $(BLASLIB)
 	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
 
-xdmdeigtstd.exe: $(DDMDEIGTST) $(TMGLIB) $(LAPACKLIB) $(BLASLIB)
+xdmdeigtstd.exe: $(DDMDEIGTST) $(AEIGTST) $(TMGLIB) $(LAPACKLIB) $(BLASLIB)
 	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
 
-xdmdeigtstz.exe: $(ZDMDEIGTST) $(TMGLIB) $(LAPACKLIB) $(BLASLIB)
+xdmdeigtstz.exe: $(ZDMDEIGTST) $(AEIGTST) $(TMGLIB) $(LAPACKLIB) $(BLASLIB)
 	$(FC) $(FFLAGS) /Fe$@ $** $(LDFLAGS)
 
 xeigtsts.exe: $(SEIGTST) $(SCIGTST) $(AEIGTST) $(TMGLIB) $(LAPACKLIB) $(BLASLIB)
