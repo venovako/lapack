@@ -7,7 +7,7 @@ include $(TOPSRCDIR)/make.inc
 OS=$(shell uname)
 
 .PHONY: all
-all: lapack_install lib blas_testing lapack_testing cblas_testing #variants_testing
+all: lapack_install lib blas_testing lapack_testing cblas_testing variants_testing
 
 .PHONY: lib
 lib: blaslib variants lapacklib tmglib cblaslib lapackelib
@@ -16,12 +16,15 @@ lib: blaslib variants lapacklib tmglib cblaslib lapackelib
 blaslib:
 	$(MAKE) -C BLAS
 ifeq ($(OS),Linux)
-	-ld -shared -o $(subst .a,.so,$(BLASLIB)) BLAS/SRC/*.o BLAS/SRC/DEPRECATED/*.o
+	-ld -shared -o $(subst .a,.so,$(BLASLIB)) BLAS/SRC/*.o
 endif # !Linux
 
 .PHONY: cblaslib
 cblaslib:
 	$(MAKE) -C CBLAS
+ifeq ($(OS),Linux)
+	-ld -shared -o $(subst .a,.so,$(CBLASLIB)) CBLAS/src/*.o
+endif # !Linux
 
 .PHONY: lapacklib
 lapacklib:
@@ -33,6 +36,9 @@ endif # !Linux
 .PHONY: lapackelib
 lapackelib:
 	$(MAKE) -C LAPACKE
+ifeq ($(OS),Linux)
+	-ld -shared -o $(subst .a,.so,$(LAPACKELIB)) LAPACKE/src/*.o
+endif # !Linux
 
 .PHONY: blaspplib
 blaspplib:
