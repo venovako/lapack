@@ -4,7 +4,6 @@
 
 TOPSRCDIR = .
 include $(TOPSRCDIR)/make.inc
-OS=$(shell uname)
 
 .PHONY: all
 all: lapack_install lib blas_testing lapack_testing cblas_testing variants_testing
@@ -15,30 +14,18 @@ lib: blaslib variants lapacklib tmglib cblaslib lapackelib
 .PHONY: blaslib
 blaslib:
 	$(MAKE) -C BLAS
-ifeq ($(OS),Linux)
-	-ld -shared -o $(subst .a,.so,$(BLASLIB)) BLAS/SRC/*.o
-endif # !Linux
 
 .PHONY: cblaslib
 cblaslib:
 	$(MAKE) -C CBLAS
-ifeq ($(OS),Linux)
-	-ld -shared -o $(subst .a,.so,$(CBLASLIB)) CBLAS/src/*.o
-endif # !Linux
 
 .PHONY: lapacklib
 lapacklib:
 	$(MAKE) -C SRC
-ifeq ($(OS),Linux)
-	-ld -shared -o $(subst .a,.so,$(LAPACKLIB)) SRC/*.o SRC/DEPRECATED/*.o INSTALL/ilaver.o INSTALL/lsame.o INSTALL/slamch.o INSTALL/sroundup_lwork.o INSTALL/second_$(TIMER).o INSTALL/droundup_lwork.o INSTALL/dlamch.o INSTALL/dsecnd_$(TIMER).o
-endif # !Linux
 
 .PHONY: lapackelib
 lapackelib:
 	$(MAKE) -C LAPACKE
-ifeq ($(OS),Linux)
-	-ld -shared -o $(subst .a,.so,$(LAPACKELIB)) LAPACKE/src/*.o
-endif # !Linux
 
 .PHONY: blaspplib
 blaspplib:
@@ -57,9 +44,6 @@ lapackpplib:
 .PHONY: tmglib
 tmglib:
 	$(MAKE) -C TESTING/MATGEN
-ifeq ($(OS),Linux)
-	-ld -shared -o $(subst .a,.so,$(TMGLIB)) TESTING/MATGEN/*.o
-endif # !Linux
 
 .PHONY: variants
 variants:
@@ -164,9 +148,6 @@ man:
 .PHONY: strip
 strip:
 	find . -name '*.a' -type f -exec strip --strip-unneeded --verbose {} \;
-ifeq ($(OS),Linux)
-	-find . -name '*.so' -type f -exec strip --strip-unneeded --verbose {} \;
-endif # Linux
 
 .PHONY: clean cleanobj cleanlib cleanexe cleantest
 clean:
@@ -181,7 +162,6 @@ clean:
 	$(MAKE) -C TESTING/EIG clean
 	$(MAKE) -C LAPACKE clean
 	rm -f *.a
-	-rm -f *.so
 cleanobj:
 	$(MAKE) -C INSTALL cleanobj
 	$(MAKE) -C BLAS cleanobj
@@ -200,7 +180,6 @@ cleanlib:
 	$(MAKE) -C TESTING/MATGEN cleanlib
 	$(MAKE) -C LAPACKE cleanlib
 	rm -f *.a
-	-rm -f *.so
 cleanexe:
 	$(MAKE) -C INSTALL cleanexe
 	$(MAKE) -C BLAS cleanexe
