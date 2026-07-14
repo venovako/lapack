@@ -50,14 +50,14 @@ DZLNTST = dlaord.obj
 SLINTST = schkaa.obj \
    schkeq.obj schkgb.obj schkge.obj schkgt.obj \
    schklq.obj schkpb.obj schkpo.obj schkps.obj schkpp.obj \
-   schkpt.obj schkq3.obj schkqp3rk.obj schkql.obj schkqr.obj schkrq.obj \
+   schkpt.obj schkq3.obj schkqp3rk.obj schkcxx.obj schkql.obj schkqr.obj schkrq.obj \
    schksp.obj schksy.obj schksy_rook.obj schksy_rk.obj  \
    schksy_aa.obj schksy_aa_2stage.obj schktb.obj schktp.obj schktr.obj \
    schktz.obj \
    sdrvgt.obj sdrvls.obj sdrvpb.obj \
    sdrvpp.obj sdrvpt.obj sdrvsp.obj sdrvsy_rook.obj sdrvsy_rk.obj \
    sdrvsy_aa.obj sdrvsy_aa_2stage.obj \
-   serrgt.obj serrlq.obj serrls.obj \
+   serrcxx.obj serrgt.obj serrlq.obj serrls.obj \
    serrps.obj serrql.obj serrqp.obj serrqr.obj \
    serrrq.obj serrtr.obj serrtz.obj \
    sgbt01.obj sgbt02.obj sgbt05.obj sgeqls.obj \
@@ -87,7 +87,7 @@ CLINTST = cchkaa.obj \
    cchkeq.obj cchkgb.obj cchkge.obj cchkgt.obj \
    cchkhe.obj cchkhe_rook.obj cchkhe_rk.obj  \
    cchkhe_aa.obj cchkhe_aa_2stage.obj cchkhp.obj cchklq.obj cchkpb.obj \
-   cchkpo.obj cchkps.obj cchkpp.obj cchkpt.obj cchkq3.obj cchkqp3rk.obj cchkql.obj \
+   cchkpo.obj cchkps.obj cchkpp.obj cchkpt.obj cchkq3.obj cchkqp3rk.obj cchkcxx.obj cchkql.obj \
    cchkqr.obj cchkrq.obj cchksp.obj cchksy.obj cchksy_rook.obj cchksy_rk.obj \
    cchksy_aa.obj cchksy_aa_2stage.obj cchktb.obj \
    cchktp.obj cchktr.obj cchktz.obj \
@@ -95,7 +95,7 @@ CLINTST = cchkaa.obj \
    cdrvhe_aa_2stage.obj \
    cdrvls.obj cdrvpb.obj cdrvpp.obj cdrvpt.obj \
    cdrvsp.obj cdrvsy_rook.obj cdrvsy_rk.obj cdrvsy_aa.obj cdrvsy_aa_2stage.obj \
-   cerrgt.obj cerrlq.obj \
+   cerrcxx.obj cerrgt.obj cerrlq.obj \
    cerrls.obj cerrps.obj cerrql.obj cerrqp.obj \
    cerrqr.obj cerrrq.obj cerrtr.obj cerrtz.obj \
    cgbt01.obj cgbt02.obj cgbt05.obj cgeqls.obj \
@@ -128,14 +128,14 @@ CLINTST = cchkaa.obj \
 DLINTST = dchkaa.obj \
    dchkeq.obj dchkgb.obj dchkge.obj dchkgt.obj \
    dchklq.obj dchkpb.obj dchkpo.obj dchkps.obj dchkpp.obj \
-   dchkpt.obj dchkq3.obj dchkqp3rk.obj dchkql.obj dchkqr.obj dchkrq.obj \
-   dchksp.obj dchksy.obj dchksy_rook.obj dchksy_rk.obj  \
+   dchkpt.obj dchkq3.obj dchkqp3rk.obj dchkcxx.obj dchkql.obj dchkqr.obj dchkrq.obj \
+   dchkrq.obj dchksp.obj dchksy.obj dchksy_rook.obj dchksy_rk.obj  \
    dchksy_aa.obj dchksy_aa_2stage.obj dchktb.obj dchktp.obj dchktr.obj \
    dchktz.obj \
    ddrvgt.obj ddrvls.obj ddrvpb.obj \
    ddrvpp.obj ddrvpt.obj ddrvsp.obj ddrvsy_rook.obj ddrvsy_rk.obj \
    ddrvsy_aa.obj ddrvsy_aa_2stage.obj \
-   derrgt.obj derrlq.obj derrls.obj \
+   derrcxx.obj derrgt.obj derrlq.obj derrls.obj \
    derrps.obj derrql.obj derrqp.obj derrqr.obj \
    derrrq.obj derrtr.obj derrtz.obj \
    dgbt01.obj dgbt02.obj dgbt05.obj dgeqls.obj \
@@ -166,14 +166,14 @@ ZLINTST = zchkaa.obj \
    zchkeq.obj zchkgb.obj zchkge.obj zchkgt.obj \
    zchkhe.obj zchkhe_rook.obj zchkhe_rk.obj zchkhe_aa.obj zchkhe_aa_2stage.obj \
    zchkhp.obj zchklq.obj zchkpb.obj \
-   zchkpo.obj zchkps.obj zchkpp.obj zchkpt.obj zchkq3.obj zchkqp3rk.obj zchkql.obj \
+   zchkpo.obj zchkps.obj zchkpp.obj zchkpt.obj zchkq3.obj zchkqp3rk.obj zchkcxx.obj zchkql.obj \
    zchkqr.obj zchkrq.obj zchksp.obj zchksy.obj zchksy_rook.obj zchksy_rk.obj \
    zchksy_aa.obj zchksy_aa_2stage.obj zchktb.obj \
    zchktp.obj zchktr.obj zchktz.obj \
    zdrvgt.obj zdrvhe_rook.obj zdrvhe_rk.obj zdrvhe_aa.obj zdrvhe_aa_2stage.obj zdrvhp.obj \
    zdrvls.obj zdrvpb.obj zdrvpp.obj zdrvpt.obj \
    zdrvsp.obj zdrvsy_rook.obj zdrvsy_rk.obj zdrvsy_aa.obj zdrvsy_aa_2stage.obj \
-   zerrgt.obj zerrlq.obj \
+   zerrcxx.obj zerrgt.obj zerrlq.obj \
    zerrls.obj zerrps.obj zerrql.obj zerrqp.obj \
    zerrqr.obj zerrrq.obj zerrtr.obj zerrtz.obj \
    zgbt01.obj zgbt02.obj zgbt05.obj zgeqls.obj \
