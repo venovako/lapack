@@ -30,7 +30,7 @@ blas_testing: blaslib
 lapack_testing: tmglib lapacklib blaslib
 	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win cleanexe && popd
 	pushd TESTING && $(MAKE) /NOLOGO /F Makefile.win && popd
-	python3.exe lapack_testing.py --fail-if-empty --fail-on-unrecognized
+	python3.exe lapack_testing.py --fail-if-empty --fail-on-unrecognized --merge-apis --junit-xml lapack_testing_junit.xml
 
 variants_testing: tmglib variants lapacklib blaslib
 	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win cleanexe && popd
