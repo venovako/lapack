@@ -1,5 +1,9 @@
 # ignore objects and archives, anywhere in the tree.
 *.[oa]
+*.so
+*.dll
+*.dylib
+*.pdb
 
 # test in INSTALL
 INSTALL/test*
@@ -52,11 +56,7 @@ doxygen_error
 SRC/la_constants.mod
 SRC/la_xisnan.mod
 
-# Generated files
-LAPACKE/include/lapacke_mangling.h
-
 # Binaries
 *.exe
 *.lib
 *.obj
-*.pdb
