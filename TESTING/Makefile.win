@@ -622,7 +622,7 @@ EIG\xdmdeigtstz.exe: $(FRCEIG) $(FRC)
 clean: cleantest
 
 cleantest:
-	DEL /F /Q *.out core
+	DEL /F /Q *.out core testing_results.txt
 
 FRCLIN:
 	@FRCLIN=$(FRCLIN)

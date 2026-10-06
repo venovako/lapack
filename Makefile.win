@@ -79,7 +79,7 @@ clean:
 	pushd TESTING\MATGEN && $(MAKE) /NOLOGO /F Makefile.win clean && popd
 	pushd TESTING\LIN && $(MAKE) /NOLOGO /F Makefile.win clean && popd
 	pushd TESTING\EIG && $(MAKE) /NOLOGO /F Makefile.win clean && popd
-	DEL /F /Q *.lib
+	DEL /F /Q *.lib lapack_testing_junit.xml
 
 cleanobj:
 	pushd INSTALL && $(MAKE) /NOLOGO /F Makefile.win cleanobj && popd
