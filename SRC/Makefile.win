@@ -115,7 +115,7 @@ DZLAUX = \
    dsteqr.obj dsterf.obj dstebr.obj \
    dlaed0_br.obj dlaed4_br.obj dlaed7_br.obj dlaed8_br.obj dlaed9_br.obj \
    dlaed0_merge_pair.obj dsteqr_boundary_br.obj \
-   dlaisnan.o disnan.obj \
+   dlaisnan.obj disnan.obj \
    dlartgp.obj dlartgs.obj ..\INSTALL\droundup_lwork.obj \
    ..\INSTALL\dlamch.obj ..\INSTALL\dsecnd_$(TIMER).obj
 
