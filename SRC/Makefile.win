@@ -90,7 +90,10 @@ SCLAUX = \
    slasd7.obj slasd8.obj slasda.obj slasdq.obj slasdt.obj \
    slaset.obj slasq1.obj slasq2.obj slasq3.obj slasq4.obj slasq5.obj slasq6.obj \
    slasr.obj  slasrt.obj slassq.obj slasv2.obj spttrf.obj sstebz.obj sstedc.obj \
-   ssteqr.obj ssterf.obj slaisnan.obj sisnan.obj \
+   ssteqr.obj ssterf.obj sstebr.obj \
+   slaed0_br.obj slaed4_br.obj slaed7_br.obj slaed8_br.obj slaed9_br.obj \
+   slaed0_merge_pair.obj ssteqr_boundary_br.obj \
+   slaisnan.obj sisnan.obj \
    slartgp.obj slartgs.obj ..\INSTALL\sroundup_lwork.obj \
    ..\INSTALL\second_$(TIMER).obj
 
@@ -109,19 +112,22 @@ DZLAUX = \
    dlasd7.obj dlasd8.obj dlasda.obj dlasdq.obj dlasdt.obj \
    dlaset.obj dlasq1.obj dlasq2.obj dlasq3.obj dlasq4.obj dlasq5.obj dlasq6.obj \
    dlasr.obj  dlasrt.obj dlassq.obj dlasv2.obj dpttrf.obj dstebz.obj dstedc.obj \
-   dsteqr.obj dsterf.obj dlaisnan.obj disnan.obj \
+   dsteqr.obj dsterf.obj dstebr.obj \
+   dlaed0_br.obj dlaed4_br.obj dlaed7_br.obj dlaed8_br.obj dlaed9_br.obj \
+   dlaed0_merge_pair.obj dsteqr_boundary_br.obj \
+   dlaisnan.o disnan.obj \
    dlartgp.obj dlartgs.obj ..\INSTALL\droundup_lwork.obj \
    ..\INSTALL\dlamch.obj ..\INSTALL\dsecnd_$(TIMER).obj
 
 SLASRC = \
-   sbdsvdx.obj spotrf2.obj sgetrf2.obj \
+   sbdsvdx.obj sbdsvdmr3.obj sbdsvdmr3_work.obj sbdtgk.obj slar1v_tgk.obj slarrf_tgk.obj slarrv_tgk.obj slarrb_tgk.obj spotrf2.obj sgetrf2.obj \
    sgbbrd.obj sgbcon.obj sgbequ.obj sgbrfs.obj sgbsv.obj \
    sgbsvx.obj sgbtf2.obj sgbtrf.obj sgbtrs.obj sgebak.obj sgebal.obj sgebd2.obj \
    sgebrd.obj sgecon.obj sgeequ.obj sgees.obj  sgeesx.obj sgeev.obj  sgeevx.obj \
    sgehd2.obj sgehrd.obj sgelq2.obj sgelqf.obj \
    sgels.obj  sgelst.obj sgelsd.obj sgelss.obj sgelsy.obj sgeql2.obj sgeqlf.obj \
    sgeqp3.obj sgeqp3rk.obj sgecxx.obj sgeqr2.obj sgeqr2p.obj sgeqrf.obj sgeqrfp.obj sgerfs.obj \
-   sgerq2.obj sgerqf.obj sgesc2.obj sgesdd.obj sgesv.obj  sgesvd.obj sgesvdx.obj sgesvx.obj \
+   sgerq2.obj sgerqf.obj sgesc2.obj sgesdd.obj sgesv.obj  sgesvd.obj sgesvdx.obj sgesvdmr3.obj sgesvx.obj \
    sgetc2.obj sgetf2.obj sgetri.obj \
    sggbak.obj sggbal.obj sgges.obj  sgges3.obj sggesx.obj \
    sggev.obj  sggev3.obj sggevx.obj \
@@ -204,7 +210,7 @@ CLASRC = \
    cgehd2.obj cgehrd.obj cgelq2.obj cgelqf.obj \
    cgels.obj  cgelst.obj cgelsd.obj cgelss.obj cgelsy.obj cgeql2.obj cgeqlf.obj \
    cgeqp3.obj cgeqp3rk.obj cgecxx.obj cgeqr2.obj cgeqr2p.obj cgeqrf.obj cgeqrfp.obj cgerfs.obj \
-   cgerq2.obj cgerqf.obj cgesc2.obj cgesdd.obj cgesv.obj  cgesvd.obj  cgesvdx.obj \
+   cgerq2.obj cgerqf.obj cgesc2.obj cgesdd.obj cgesv.obj  cgesvd.obj  cgesvdx.obj cgesvdmr3.obj \
    cgesvj.obj cgejsv.obj cgsvj0.obj cgsvj1.obj \
    cgesvx.obj cgetc2.obj cgetf2.obj cgetri.obj \
    cggbak.obj cggbal.obj cgges.obj  cgges3.obj cggesx.obj \
@@ -292,14 +298,14 @@ ZCLASRC = cpotrs.obj cgetrs.obj cpotrf.obj cgetrf.obj
 
 DLASRC = \
    dpotrf2.obj dgetrf2.obj \
-   dbdsvdx.obj \
+   dbdsvdx.obj dbdsvdmr3.obj dbdsvdmr3_work.obj dbdtgk.obj dlar1v_tgk.obj dlarrf_tgk.obj dlarrv_tgk.obj dlarrb_tgk.obj \
    dgbbrd.obj dgbcon.obj dgbequ.obj dgbrfs.obj dgbsv.obj \
    dgbsvx.obj dgbtf2.obj dgbtrf.obj dgbtrs.obj dgebak.obj dgebal.obj dgebd2.obj \
    dgebrd.obj dgecon.obj dgeequ.obj dgees.obj  dgeesx.obj dgeev.obj  dgeevx.obj \
    dgehd2.obj dgehrd.obj dgelq2.obj dgelqf.obj \
    dgels.obj  dgelst.obj dgelsd.obj dgelss.obj dgelsy.obj dgeql2.obj dgeqlf.obj \
    dgeqp3.obj dgeqp3rk.obj dgecxx.obj dgeqr2.obj dgeqr2p.obj dgeqrf.obj dgeqrfp.obj dgerfs.obj \
-   dgerq2.obj dgerqf.obj dgesc2.obj dgesdd.obj dgesv.obj  dgesvd.obj dgesvdx.obj dgesvx.obj \
+   dgerq2.obj dgerqf.obj dgesc2.obj dgesdd.obj dgesv.obj  dgesvd.obj dgesvdx.obj dgesvdmr3.obj dgesvx.obj \
    dgetc2.obj dgetf2.obj dgetrf.obj dgetri.obj \
    dgetrs.obj dggbak.obj dggbal.obj dgges.obj  dgges3.obj dggesx.obj \
    dggev.obj  dggev3.obj dggevx.obj \
@@ -382,7 +388,7 @@ ZLASRC = \
    zgels.obj zgelst.obj zgelsd.obj zgelss.obj zgelsy.obj zgeql2.obj zgeqlf.obj \
    zgeqp3.obj zgeqp3rk.obj zgecxx.obj \
    zgeqr2.obj zgeqr2p.obj zgeqrf.obj zgeqrfp.obj zgerfs.obj zgerq2.obj zgerqf.obj \
-   zgesc2.obj zgesdd.obj zgesv.obj  zgesvd.obj zgesvdx.obj \
+   zgesc2.obj zgesdd.obj zgesv.obj  zgesvd.obj zgesvdx.obj zgesvdmr3.obj \
    zgesvj.obj zgejsv.obj zgsvj0.obj zgsvj1.obj \
    zgesvx.obj zgetc2.obj zgetf2.obj zgetrf.obj \
    zgetri.obj zgetrs.obj \

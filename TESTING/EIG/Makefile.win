@@ -58,7 +58,7 @@ SEIGTST = schkee.obj \
    schkgg.obj schkgk.obj schkgl.obj schkhs.obj schksb.obj schkst.obj schkst2stg.obj schksb2stg.obj \
    sckcsd.obj sckglm.obj sckgqr.obj sckgsv.obj scklse.obj scsdts.obj \
    sdrges.obj sdrgev.obj sdrges3.obj sdrgev3.obj sdrgsx.obj sdrgvx.obj \
-   sdrvbd.obj sdrves.obj sdrvev.obj sdrvsg.obj sdrvsg2stg.obj \
+   sdrvbd.obj sdrvmr3.obj sdrves.obj sdrvev.obj sdrvsg.obj sdrvsg2stg.obj \
    sdrvst.obj sdrvst2stg.obj sdrvsx.obj sdrvvx.obj \
    serrbd.obj serrec.obj serred.obj serrgg.obj serrhs.obj serrst.obj \
    sget02.obj sget10.obj sget22.obj sget23.obj sget24.obj sget31.obj \
@@ -77,7 +77,7 @@ CEIGTST = cchkee.obj \
    cchkgg.obj cchkgk.obj cchkgl.obj cchkhb.obj cchkhs.obj cchkst.obj cchkst2stg.obj cchkhb2stg.obj \
    cckcsd.obj cckglm.obj cckgqr.obj cckgsv.obj ccklse.obj ccsdts.obj \
    cdrges.obj cdrgev.obj cdrges3.obj cdrgev3.obj cdrgsx.obj cdrgvx.obj \
-   cdrvbd.obj cdrves.obj cdrvev.obj cdrvsg.obj cdrvsg2stg.obj \
+   cdrvbd.obj cdrvmr3.obj cdrves.obj cdrvev.obj cdrvsg.obj cdrvsg2stg.obj \
    cdrvst.obj cdrvst2stg.obj cdrvsx.obj cdrvvx.obj \
    cerrbd.obj cerrec.obj cerred.obj cerrgg.obj cerrhs.obj cerrst.obj \
    cget02.obj cget10.obj cget22.obj cget23.obj cget24.obj \
@@ -99,7 +99,7 @@ DEIGTST = dchkee.obj \
    dchkgg.obj dchkgk.obj dchkgl.obj dchkhs.obj dchksb.obj dchkst.obj dchkst2stg.obj dchksb2stg.obj \
    dckcsd.obj dckglm.obj dckgqr.obj dckgsv.obj dcklse.obj dcsdts.obj \
    ddrges.obj ddrgev.obj ddrges3.obj ddrgev3.obj ddrgsx.obj ddrgvx.obj \
-   ddrvbd.obj ddrves.obj ddrvev.obj ddrvsg.obj ddrvsg2stg.obj \
+   ddrvbd.obj ddrvmr3.obj ddrves.obj ddrvev.obj ddrvsg.obj ddrvsg2stg.obj \
    ddrvst.obj ddrvst2stg.obj ddrvsx.obj ddrvvx.obj \
    derrbd.obj derrec.obj derred.obj derrgg.obj derrhs.obj derrst.obj \
    dget02.obj dget10.obj dget22.obj dget23.obj dget24.obj dget31.obj \
@@ -118,7 +118,7 @@ ZEIGTST = zchkee.obj \
    zchkgg.obj zchkgk.obj zchkgl.obj zchkhb.obj zchkhs.obj zchkst.obj zchkst2stg.obj zchkhb2stg.obj \
    zckcsd.obj zckglm.obj zckgqr.obj zckgsv.obj zcklse.obj zcsdts.obj \
    zdrges.obj zdrgev.obj zdrges3.obj zdrgev3.obj zdrgsx.obj zdrgvx.obj \
-   zdrvbd.obj zdrves.obj zdrvev.obj zdrvsg.obj zdrvsg2stg.obj \
+   zdrvbd.obj zdrvmr3.obj zdrves.obj zdrvev.obj zdrvsg.obj zdrvsg2stg.obj \
    zdrvst.obj zdrvst2stg.obj zdrvsx.obj zdrvvx.obj \
    zerrbd.obj zerrec.obj zerred.obj zerrgg.obj zerrhs.obj zerrst.obj \
    zget02.obj zget10.obj zget22.obj zget23.obj zget24.obj \

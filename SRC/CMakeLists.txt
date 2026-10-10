@@ -46,7 +46,7 @@ set(ALLAUX ilaenv.f ilaenv2stage.f ieeeck.f lsamen.f iparmq.f iparam2stage.F
    ../INSTALL/slamch.f)
 
 set(SCLAUX
-   sbdsvdx.f sbdsdc.f
+   sbdsvdx.f sbdsvdmr3.f sbdsvdmr3_work.f sbdtgk.f slar1v_tgk.f slarrf_tgk.f slarrv_tgk.f slarrb_tgk.f sbdsdc.f
    sbdsqr.f sdisna.f slabad.f slacpy.f sladiv.f slae2.f  slaebz.f
    slaed0.f slaed1.f slaed2.f slaed3.f slaed4.f slaed5.f slaed6.f
    slaed7.f slaed8.f slaed9.f slaeda.f slaev2.f slagtf.f
@@ -59,7 +59,9 @@ set(SCLAUX
    slasd7.f slasd8.f slasda.f slasdq.f slasdt.f
    slaset.f slasq1.f slasq2.f slasq3.f slasq4.f slasq5.f slasq6.f
    slasr.f  slasrt.f slassq.f90 slasv2.f spttrf.f sstebz.f sstedc.f
-   sstein.f ssteqr.f ssterf.f sstevx.f
+   sstein.f ssteqr.f ssterf.f sstevx.f sstebr.f
+   slaed0_br.f slaed4_br.f slaed7_br.f slaed8_br.f slaed9_br.f
+   slaed0_merge_pair.f ssteqr_boundary_br.f
    slartgp.f slartgs.f ../INSTALL/sroundup_lwork.f
    ${SECOND_SRC})
 
@@ -80,7 +82,9 @@ set(DZLAUX
    dlaset.f dlasq1.f dlasq2.f dlasq3.f dlasq4.f dlasq5.f dlasq6.f
    dlasr.f  dlasrt.f dlassq.f90 dlasv2.f dlaisnan.f
    dpttrf.f
-   dstebz.f dstedc.f dstein.f dsteqr.f dsterf.f dstevx.f
+   dstebz.f dstedc.f dstein.f dsteqr.f dsterf.f dstevx.f dstebr.f
+   dlaed0_br.f dlaed4_br.f dlaed7_br.f dlaed8_br.f dlaed9_br.f
+   dlaed0_merge_pair.f dsteqr_boundary_br.f
    dlartgp.f dlartgs.f ../INSTALL/droundup_lwork.f
    ../INSTALL/dlamch.f ${DSECOND_SRC})
 
@@ -91,7 +95,7 @@ set(SLASRC
    sgehd2.f sgehrd.f sgelq2.f sgelqf.f
    sgels.f  sgelst.f  sgelsd.f sgelss.f sgelsy.f sgeql2.f sgeqlf.f
    sgeqp3.f sgeqp3rk.f sgecxx.f sgeqr2.f sgeqr2p.f sgeqrf.f sgeqrfp.f sgerfs.f sgerq2.f sgerqf.f
-   sgesc2.f sgesdd.f sgesv.f  sgesvd.f sgesvdx.f sgesvx.f sgetc2.f sgetf2.f
+   sgesc2.f sgesdd.f sgesv.f  sgesvd.f sgesvdx.f sgesvdmr3.f sgesvx.f sgetc2.f sgetf2.f
    sgetri.f
    sggbak.f sggbal.f
    sgges.f  sgges3.f sggesx.f sggev.f  sggev3.f sggevx.f
@@ -183,7 +187,7 @@ set(CLASRC
    cgels.f  cgelst.f cgelsd.f cgelss.f cgelsy.f cgeql2.f cgeqlf.f
    cgeqp3.f cgeqp3rk.f cgecxx.f
    cgeqr2.f cgeqr2p.f cgeqrf.f cgeqrfp.f cgerfs.f cgerq2.f cgerqf.f
-   cgesc2.f cgesdd.f cgesv.f  cgesvd.f cgesvdx.f
+   cgesc2.f cgesdd.f cgesv.f  cgesvd.f cgesvdx.f cgesvdmr3.f
    cgesvj.f cgejsv.f cgsvj0.f cgsvj1.f
    cgesvx.f cgetc2.f cgetf2.f cgetrf2.f
    cgetri.f
@@ -286,13 +290,13 @@ set(ZCLASRC
     sisnan.f slaisnan.f)
 
 set(DLASRC
-   dbdsvdx.f dgbbrd.f dgbcon.f dgbequ.f dgbrfs.f dgbsv.f
+   dbdsvdx.f dbdsvdmr3.f dbdsvdmr3_work.f dbdtgk.f dlar1v_tgk.f dlarrf_tgk.f dlarrv_tgk.f dlarrb_tgk.f dgbbrd.f dgbcon.f dgbequ.f dgbrfs.f dgbsv.f
    dgbsvx.f dgbtf2.f dgbtrf.f dgbtrs.f dgebak.f dgebal.f dgebd2.f
    dgebrd.f dgecon.f dgeequ.f dgees.f  dgeesx.f dgeev.f  dgeevx.f
    dgehd2.f dgehrd.f dgelq2.f dgelqf.f
    dgels.f  dgelst.f dgelsd.f dgelss.f dgelsy.f dgeql2.f dgeqlf.f
    dgeqp3.f dgeqp3rk.f dgecxx.f dgeqr2.f dgeqr2p.f dgeqrf.f dgeqrfp.f dgerfs.f dgerq2.f dgerqf.f
-   dgesc2.f dgesdd.f dgesv.f  dgesvd.f dgesvdx.f dgesvx.f dgetc2.f dgetf2.f
+   dgesc2.f dgesdd.f dgesv.f  dgesvd.f dgesvdx.f dgesvdmr3.f dgesvx.f dgetc2.f dgetf2.f
    dgetrf.f dgetrf2.f dgetri.f
    dgetrs.f dggbak.f dggbal.f
    dgges.f  dgges3.f dggesx.f dggev.f  dggev3.f dggevx.f
@@ -382,7 +386,7 @@ set(ZLASRC
    zgels.f zgelst.f zgelsd.f zgelss.f zgelsy.f zgeql2.f zgeqlf.f
    zgeqp3.f zgeqp3rk.f zgecxx.f
    zgeqr2.f zgeqr2p.f zgeqrf.f zgeqrfp.f zgerfs.f zgerq2.f zgerqf.f
-   zgesc2.f zgesdd.f zgesv.f  zgesvd.f zgesvdx.f zgesvx.f
+   zgesc2.f zgesdd.f zgesv.f  zgesvd.f zgesvdx.f zgesvdmr3.f zgesvx.f
    zgesvj.f zgejsv.f zgsvj0.f zgsvj1.f
    zgetc2.f zgetf2.f zgetrf.f zgetrf2.f
    zgetri.f zgetrs.f
