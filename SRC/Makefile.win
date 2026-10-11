@@ -149,7 +149,7 @@ SLASRC = \
    slarz.obj  slarzb.obj slarzt.obj slaswp.obj slasy2.obj slasyf.obj slasyf_rook.obj \
    slasyf_rk.obj \
    slatbs.obj slatdf.obj slatps.obj slatrd.obj slatrs.obj slatrs3.obj slatrz.obj \
-   slauu2.obj slauum.obj sopgtr.obj sopmtr.obj sorg2l.obj sorg2r.obj \
+   slauu2.obj slauum.obj slauum_blocked.obj slauum_recursive.obj sopgtr.obj sopmtr.obj sorg2l.obj sorg2r.obj \
    sorgbr.obj sorghr.obj sorgl2.obj sorglq.obj sorgql.obj sorgqr.obj sorgr2.obj \
    sorgrq.obj sorgtr.obj sorgtsqr.obj sorgtsqr_row.obj sorm2l.obj sorm2r.obj sorm22.obj \
    sormbr.obj sormhr.obj sorml2.obj sormlq.obj sormql.obj sormqr.obj sormr2.obj \
@@ -251,7 +251,7 @@ CLASRC = \
    clarz.obj  clarzb.obj clarzt.obj clascl.obj claset.obj clasr.obj  classq.obj \
    claswp.obj clasyf.obj clasyf_rook.obj clasyf_rk.obj clasyf_aa.obj \
    clatbs.obj clatdf.obj clatps.obj clatrd.obj clatrs.obj clatrs3.obj clatrz.obj \
-   clauu2.obj clauum.obj cpbcon.obj cpbequ.obj cpbrfs.obj cpbstf.obj cpbsv.obj \
+   clauu2.obj clauum.obj clauum_blocked.obj clauum_recursive.obj cpbcon.obj cpbequ.obj cpbrfs.obj cpbstf.obj cpbsv.obj \
    cpbsvx.obj cpbtf2.obj cpbtrf.obj cpbtrs.obj cpocon.obj cpoequ.obj cporfs.obj \
    cposv.obj  cposvx.obj cpotf2.obj cpotri.obj cpstrf.obj cpstf2.obj \
    cppcon.obj cppequ.obj cpprfs.obj cppsv.obj  cppsvx.obj cpptrf.obj cpptri.obj cpptrs.obj \
@@ -327,7 +327,7 @@ DLASRC = \
    dlarz.obj  dlarzb.obj dlarzt.obj dlaswp.obj dlasy2.obj \
    dlasyf.obj dlasyf_rook.obj dlasyf_rk.obj \
    dlatbs.obj dlatdf.obj dlatps.obj dlatrd.obj dlatrs.obj dlatrs3.obj dlatrz.obj dlauu2.obj \
-   dlauum.obj dopgtr.obj dopmtr.obj dorg2l.obj dorg2r.obj \
+   dlauum.obj dlauum_blocked.obj dlauum_recursive.obj dopgtr.obj dopmtr.obj dorg2l.obj dorg2r.obj \
    dorgbr.obj dorghr.obj dorgl2.obj dorglq.obj dorgql.obj dorgqr.obj dorgr2.obj \
    dorgrq.obj dorgtr.obj dorgtsqr.obj dorgtsqr_row.obj dorm2l.obj dorm2r.obj dorm22.obj \
    dormbr.obj dormhr.obj dorml2.obj dormlq.obj dormql.obj dormqr.obj dormr2.obj \
@@ -432,7 +432,7 @@ ZLASRC = \
    zlarz.obj  zlarzb.obj zlarzt.obj zlascl.obj zlaset.obj zlasr.obj \
    zlassq.obj zlaswp.obj zlasyf.obj zlasyf_rook.obj zlasyf_rk.obj zlasyf_aa.obj \
    zlatbs.obj zlatdf.obj zlatps.obj zlatrd.obj zlatrs.obj zlatrs3.obj zlatrz.obj zlauu2.obj \
-   zlauum.obj zpbcon.obj zpbequ.obj zpbrfs.obj zpbstf.obj zpbsv.obj \
+   zlauum.obj zlauum_blocked.obj zlauum_recursive.obj zpbcon.obj zpbequ.obj zpbrfs.obj zpbstf.obj zpbsv.obj \
    zpbsvx.obj zpbtf2.obj zpbtrf.obj zpbtrs.obj zpocon.obj zpoequ.obj zporfs.obj \
    zposv.obj  zposvx.obj zpotf2.obj zpotrf.obj zpotri.obj zpotrs.obj zpstrf.obj zpstf2.obj \
    zppcon.obj zppequ.obj zpprfs.obj zppsv.obj  zppsvx.obj zpptrf.obj zpptri.obj zpptrs.obj \
