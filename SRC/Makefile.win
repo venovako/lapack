@@ -70,7 +70,7 @@ ALLMOD = la_xisnan.mod la_constants.mod
 .obj.mod:
 	@ECHO
 
-ALLAUX = ilaenv.obj ilaenv2stage.obj ieeeck.obj lsamen.obj xerbla.obj xerbla_array.obj \
+ALLAUX = ilaenv.obj ilaenv2stage.obj ieeeck.obj lsamen.obj xerbla.obj xerbla_array.obj xerbla_lapack.obj \
    iparmq.obj iparam2stage.obj la_xisnan.obj \
    ilaprec.obj ilatrans.obj ilauplo.obj iladiag.obj chla_transtype.obj \
    ..\INSTALL\ilaver.obj ..\INSTALL\lsame.obj ..\INSTALL\slamch.obj
@@ -583,3 +583,4 @@ la_xisnan.obj: la_xisnan.F90 la_constants.mod
 	$(FC) $(FFLAGS) /c /Fo$@ la_xisnan.F90
 la_constants.obj: la_constants.f90
 	$(FC) $(FFLAGS) /c /Fo$@ la_constants.f90
+xerbla.obj: xerbla_lapack.obj
