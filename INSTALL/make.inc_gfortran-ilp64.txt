@@ -18,7 +18,7 @@ ifndef NDEBUG
 CFLAGS += -fexceptions -fasynchronous-unwind-tables -fno-omit-frame-pointer
 endif # !NDEBUG
 ifeq ($(MARCH),ppc64le)
-CFLAGS = -mcpu=native -mpower8-fusion -mtraceback=full
+CFLAGS = -mcpu=native -mtraceback=full
 else # !ppc64le
 CFLAGS = -march=native
 endif # ?ppc64le
