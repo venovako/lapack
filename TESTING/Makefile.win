@@ -41,6 +41,9 @@ all: single complex double complex16 singleproto doubleproto complexproto comple
 
 SEIGTST= snep.out \
          ssep.out \
+         ssteds.out \
+         ssteds_error_locations.out \
+         ssteds_merge_failures.out \
          sse2.out \
          ssvd.out \
          sec.out \
@@ -87,6 +90,9 @@ CDMDEIGTST= cdmd.out
 
 DEIGTST= dnep.out \
          dsep.out \
+         dsteds.out \
+         dsteds_error_locations.out \
+         dsteds_merge_failures.out \
          dse2.out \
          dsvd.out \
          dec.out \
@@ -595,6 +601,10 @@ LIN\xlintstds.exe: $(FRCLIN) $(FRC)
 LIN\xlintstzc.exe: $(FRCLIN) $(FRC)
 	pushd LIN && $(MAKE) /NOLOGO /F Makefile.win xlintstzc.exe && popd
 
+# Forward the standalone STEDS tests on a clean Makefile build.
+EIG\test_ssteds_interfaces.exe EIG\test_ssteds_error_locations.exe EIG\test_ssteds_merge_failures.exe EIG\test_dsteds_interfaces.exe EIG\test_dsteds_error_locations.exe EIG\test_dsteds_merge_failures.exe: $(FRCEIG) $(FRC)
+	pushd EIG && $(MAKE) /NOLOGO /F Makefile.win test_ssteds_interfaces.exe test_ssteds_error_locations.exe test_ssteds_merge_failures.exe test_dsteds_interfaces.exe test_dsteds_error_locations.exe test_dsteds_merge_failures.exe && popd
+
 EIG\xeigtsts.exe: $(FRCEIG) $(FRC)
 	pushd EIG && $(MAKE) /NOLOGO /F Makefile.win xeigtsts.exe && popd
 
@@ -632,3 +642,24 @@ FRCEIG:
 
 FRC:
 	@FRC=$(FRC)
+
+
+# SSTEDS boundary tests, built by TESTING/EIG's single target.
+ssteds.out: steds.in EIG\test_ssteds_interfaces.exe
+	EIG\test_ssteds_interfaces.exe < steds.in > $@ 2>&1
+
+ssteds_error_locations.out: steds.in EIG\test_ssteds_error_locations.exe
+	EIG\test_ssteds_error_locations.exe < steds.in > $@ 2>&1
+
+ssteds_merge_failures.out: steds.in EIG/test_ssteds_merge_failures
+	EIG\test_ssteds_merge_failures.exe < steds.in > $@ 2>&1
+
+# DSTEDS boundary tests, built by TESTING/EIG's double target.
+dsteds.out: steds.in EIG\test_dsteds_interfaces.exe
+	EIG\test_dsteds_interfaces.exe < steds.in > $@ 2>&1
+
+dsteds_error_locations.out: steds.in EIG\test_dsteds_error_locations.exe
+	EIG\test_dsteds_error_locations.exe < steds.in > $@ 2>&1
+
+dsteds_merge_failures.out: steds.in EIG\test_dsteds_merge_failures.exe
+	EIG\test_dsteds_merge_failures.exe < steds.in > $@ 2>&1

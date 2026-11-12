@@ -93,6 +93,7 @@ SCLAUX = \
    ssteqr.obj ssterf.obj sstebr.obj \
    slaed0_br.obj slaed4_br.obj slaed7_br.obj slaed8_br.obj slaed9_br.obj \
    slaed0_merge_pair.obj ssteqr_boundary_br.obj \
+   ssteds.obj slaes0.obj slaes1.obj slaes2.obj slaes3.obj slaes4.obj \
    slaisnan.obj sisnan.obj \
    slartgp.obj slartgs.obj ..\INSTALL\sroundup_lwork.obj \
    ..\INSTALL\second_$(TIMER).obj
@@ -115,6 +116,7 @@ DZLAUX = \
    dsteqr.obj dsterf.obj dstebr.obj \
    dlaed0_br.obj dlaed4_br.obj dlaed7_br.obj dlaed8_br.obj dlaed9_br.obj \
    dlaed0_merge_pair.obj dsteqr_boundary_br.obj \
+   dsteds.obj dlaes0.obj dlaes1.obj dlaes2.obj dlaes3.obj dlaes4.obj \
    dlaisnan.obj disnan.obj \
    dlartgp.obj dlartgs.obj ..\INSTALL\droundup_lwork.obj \
    ..\INSTALL\dlamch.obj ..\INSTALL\dsecnd_$(TIMER).obj
