@@ -96,8 +96,8 @@ DZIGTST = dlafts.obj dlahd2.obj dlasum.obj dlatb9.obj dstech.obj dstect.obj \
 DEIGTST = dchkee.obj \
    dbdt01.obj dbdt02.obj dbdt03.obj dbdt04.obj dbdt05.obj \
    dchkbb.obj dchkbd.obj dchkbk.obj dchkbl.obj dchkec.obj \
-   dchkgg.obj dchkgk.obj dchkgl.obj dchkhs.obj dchksb.obj dchkst.obj dchkst2stg.obj dchksb2stg.obj \
    dchkgg.obj dchkgk.obj dchkgl.obj dchkhs.obj dchksb.obj dchkst.obj dchksteds.obj dchkst2stg.obj dchksb2stg.obj \
+   dckcsd.obj dckglm.obj dckgqr.obj dckgsv.obj dcklse.obj dcsdts.obj \
    ddrges.obj ddrgev.obj ddrges3.obj ddrgev3.obj ddrgsx.obj ddrgvx.obj \
    ddrvbd.obj ddrvmr3.obj ddrves.obj ddrvev.obj ddrvsg.obj ddrvsg2stg.obj \
    ddrvst.obj ddrvst2stg.obj ddrvsx.obj ddrvvx.obj \
