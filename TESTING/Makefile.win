@@ -651,7 +651,7 @@ ssteds.out: steds.in EIG\test_ssteds_interfaces.exe
 ssteds_error_locations.out: steds.in EIG\test_ssteds_error_locations.exe
 	EIG\test_ssteds_error_locations.exe < steds.in > $@ 2>&1
 
-ssteds_merge_failures.out: steds.in EIG/test_ssteds_merge_failures
+ssteds_merge_failures.out: steds.in EIG/test_ssteds_merge_failures.exe
 	EIG\test_ssteds_merge_failures.exe < steds.in > $@ 2>&1
 
 # DSTEDS boundary tests, built by TESTING/EIG's double target.
