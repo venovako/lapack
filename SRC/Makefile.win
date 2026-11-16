@@ -585,4 +585,3 @@ la_xisnan.obj: la_xisnan.F90 la_constants.mod
 	$(FC) $(FFLAGS) /c /Fo$@ la_xisnan.F90
 la_constants.obj: la_constants.f90
 	$(FC) $(FFLAGS) /c /Fo$@ la_constants.f90
-xerbla.obj: xerbla_lapack.obj

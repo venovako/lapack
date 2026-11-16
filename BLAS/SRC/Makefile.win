@@ -66,9 +66,6 @@ TOPSRCDIR = ..\..
 
 all: $(BLASLIB)
 
-# force ordering of .mod building
-xerbla.obj: xerbla_blas.obj
-
 #---------------------------------------------------------
 #  Comment out the next 6 definitions if you already have
 #  the Level 1 BLAS.
@@ -100,7 +97,7 @@ $(ZB1AUX): $(FRC)
 #  Level 2 and Level 3 BLAS.  Comment it out only if you already have
 #  both the Level 2 and 3 BLAS.
 #---------------------------------------------------------------------
-ALLBLAS = lsame.obj xerbla.obj xerbla_array.obj xerbla_blas.obj
+ALLBLAS = lsame.obj xerbla.obj xerbla_array.obj xerbla_blas.obj iblaver.obj
 $(ALLBLAS): $(FRC)
 
 #---------------------------------------------------------
